@@ -15,9 +15,9 @@
     <style>
         .button {
             background-color: rgb(0,0,140);
-            border-radius: 6px;
+            border-radius: 8px;
             color: lightgray;
-            padding: 20px 80px;
+            padding: 20px 107px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -26,12 +26,16 @@
             cursor: pointer;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         }
+            .button:active {
+                background-color: rgb(0,0,185);
+                transform: translateY(4px);
+            }
 
         .button2 {
             background-color: rgb(0,0,140);
-            border-radius: 6px;
+            border-radius: 8px;
             color: lightgray;
-            padding: 20px 90px;
+            padding: 20px 116px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -40,13 +44,50 @@
             cursor: pointer;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         }
+        .button2:active {
+            background-color: rgb(0,0,185);
+            transform: translateY(4px);
+        }
+
 
         .span {
             padding: 20px 90px;
         }
     </style>
 </head>
-<body> 
+<body>
+    <script>
+        function addZero(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+
+        function myTime() {
+            var d = new Date();
+            var x = document.getElementById("time");
+            var h = addZero(d.getHours());
+            var m = addZero(d.getMinutes());
+            var s = addZero(d.getSeconds());
+            x.innerHTML = h + ":" + m + ":" + s;
+        }
+
+    </script>
+
+    <script>
+
+        function paivaMaara() {
+            var v = new Date()
+            var j = document.getElementById("day");
+            var y = (v.getFullYear());
+            var o = (v.getMonth() + 1);
+            var p = (v.getDate());
+            j.innerHTML = p + "-" + o + "-" + y;
+        }
+
+    </script>
+
     <div class="w3-content" style="max-width:1400px">
 
         <!-- Header -->
@@ -55,38 +96,61 @@
             <p class="w3-text-grey">Tervetuloa Point Collegen </p> <p> <span class="w3-tag w3-text-white" style="background-color:rgb(0,0,140);">Tuntileimaukseen</span></p>
         </header>
         <!-- Grid -->
+    
         <div class="w3-row">
             <!-- Sites -->
             <div class="w3-third">
                 <div class="container">
-                    <form action="/action_page.php">
+                    <form action="">
                         <div class="form-group">
                             <label for="Opiskelijanumero">Opiskelijanumero:</label>
                             <input type="text" class="form-control" id="opiskelijanumero" placeholder="Anna opiskelijanumero" name="numero">
                         </div>
                         <div class="form-group">
                             <label for="Luokkanumero">Luokkanumero:</label>
-                            <input type="text" class="form-control" id="luokkanumero" placeholder="Anna luokkahuoneennumero" name="pwd">
+                            <input type="text" class="form-control" id="luokkanumero" placeholder="Anna luokkahuoneen numero" name="pwd">
                         </div>
                     </form>
                 </div>
             </div>
             <div class="w3-third">
                 <div class="container">
-                    <form action="/action_page.php">
-                        <div class="form-group">
-                            <label for="date">Päivä:</label>
-                            <input type="date" class="form-control" id="date" placeholder="Päivämäärä" name="date">
-                        </div>
-                        <div class="form-group">
-                            <label for="time">aika:</label>
-                            <input type="time" class="form-control" id="time" placeholder="Aika" name="pwd">
-                        </div>
-                    </form>
+                    <div>
+                        <button class="button" onclick="myTime(); paivaMaara()">Sisään</button>
+
+                        <p id="demo"></p>
+                        <p id="demo1"></p>
+                    </div>
+                    <div>
+                        <button class="button2" onclick="myTime(); paivaMaara()">Ulos</button>
+
+                        <p id="time"></p>
+                        <p id="day"></p>
+                    </div>
+                </div>
+        </div>
+    </div> <!-- END GRID -->
+    <!-- END TuntiLeimaus ENTRIES -->
+
+    <div>
+        <!-- Blog entry -->
+        <div class="w3-display-container w3-container w3-margin-top list-group">
+            <div class="w3-col m8 s12">
+                <div class="w3-white w3-margin-top">
+                    <h4 class="class="list-group-item active" style="margin-left:12px;"><b>Linkit</b></h4>
+                    <a href="http://www.pointcollege.fi/" class="w3-bar-item w3-button">Point Gollege</a>
+                    <a href="https://www.office.com/?auth=2&home=1" class="w3-bar-item w3-button">Office 365</a>
+                    <a href="https://moodle.pointcollege.fi/login/index.php" class="w3-bar-item w3-button">Moodle</a>
+                    <a href="https://wilma.pointcollege.fi/" class="w3-bar-item w3-button">Wilma</a>
                 </div>
             </div>
         </div>
-    </div>  <!-- END GRID -->
- 
+
+        <!-- END BLOG ENTRIES -->
+    </div>
+    <!-- Introduction menu -->
+    </div>
+  <!-- END GRID -->
+
 </body>
 </html>

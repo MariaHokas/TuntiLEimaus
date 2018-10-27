@@ -15,10 +15,12 @@
             background-repeat: no-repeat;
             background-position: left top;
             background-size: 200px;
-            margin:5px;
+            margin: 5px;
         }
+
     </style>
 </head>
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed w3-margin-top" style="background-color:rgb(0,0,140);">
         <div class="container">
@@ -33,23 +35,22 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Leimaus", "Index", "Leimaus")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div id="bg"></div>
-    <div>
-        @RenderBody()
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 
-        <hr />
-
-        <footer class="w3-container w3-black w3-center w3-margin-top" style="background-image:url(../../Images/bookcase-1869616_960_720.jpg)">
+    <br />
+    <div class="w3-container-fluid body-content">
+        <footer class="w3-container w3-black w3-center" style="background-image:url(../../Images/bookcase-1869616_960_720.jpg)">
             <p class="w3-margin-top">Find us on Social Media</p>
             <a href="https://www.facebook.com/PointCollege1/" class="fa fa-facebook-official fa-2x"></a>
             <a href="https://www.instagram.com/pointcollegeporvoo/" class="fa fa-instagram fa-2x"></a>
