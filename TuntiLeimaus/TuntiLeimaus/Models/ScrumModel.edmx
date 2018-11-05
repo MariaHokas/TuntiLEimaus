@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ScrumModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ScrumModelStoreContainer">
+    <EntitySet Name="Leimaus" EntityType="ScrumModel.Store.Leimaus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Luokkahuone" EntityType="ScrumModel.Store.Luokkahuone" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Opettajat" EntityType="ScrumModel.Store.Opettajat" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Opiskelijat" EntityType="ScrumModel.Store.Opiskelijat" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tuntiraportti" EntityType="ScrumModel.Store.Tuntiraportti" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Luokkahuone" Association="ScrumModel.Store.FK_Luokkahuone">
+      <End Role="Luokkahuone" EntitySet="Luokkahuone" />
+      <End Role="Leimaus" EntitySet="Leimaus" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Leimaus">
+    <Key>
+      <PropertyRef Name="OpiskelijaID" />
+    </Key>
+    <Property Name="OpiskelijaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LuokkahuoneID" Type="int" Nullable="true" />
+    <Property Name="Sisään" Type="datetime" Nullable="true" />
+    <Property Name="Ulos" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Luokkahuone">
+    <Key>
+      <PropertyRef Name="LuokkahuoneID" />
+    </Key>
+    <Property Name="LuokkahuoneID" Type="int" Nullable="false" />
+    <Property Name="Etunimi" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Sukunimi" Type="varchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Opettajat">
+    <Key>
+      <PropertyRef Name="OpettajaID" />
+    </Key>
+    <Property Name="OpettajaID" Type="int" Nullable="false" />
+    <Property Name="Etunimi" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Sukunimi" Type="varchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Opiskelijat">
+    <Key>
+      <PropertyRef Name="OpiskelijaID" />
+    </Key>
+    <Property Name="OpiskelijaID" Type="int" Nullable="false" />
+    <Property Name="Etunimi" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Sukunimi" Type="varchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tuntiraportti">
+    <Key>
+      <PropertyRef Name="OpiskelijaID" />
+    </Key>
+    <Property Name="OpiskelijaID" Type="int" Nullable="false" />
+    <Property Name="Etunimi" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Sukunimi" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="LuokkahuoneID" Type="int" Nullable="true" />
+    <Property Name="Sisään" Type="datetime" Nullable="true" />
+    <Property Name="Ulos" Type="datetime" Nullable="true" />
+  </EntityType>
+  <Association Name="FK_Luokkahuone">
+    <End Role="Luokkahuone" Type="ScrumModel.Store.Luokkahuone" Multiplicity="0..1" />
+    <End Role="Leimaus" Type="ScrumModel.Store.Leimaus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Luokkahuone">
+        <PropertyRef Name="LuokkahuoneID" />
+      </Principal>
+      <Dependent Role="Leimaus">
+        <PropertyRef Name="LuokkahuoneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ScrumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ScrumEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Leimaus" EntityType="ScrumModel.Leimaus" />
+          <EntitySet Name="Luokkahuone" EntityType="ScrumModel.Luokkahuone" />
+          <EntitySet Name="Opettajat" EntityType="ScrumModel.Opettajat" />
+          <EntitySet Name="Opiskelijat" EntityType="ScrumModel.Opiskelijat" />
+          <EntitySet Name="Tuntiraportti" EntityType="ScrumModel.Tuntiraportti" />
+          <AssociationSet Name="FK_Luokkahuone" Association="ScrumModel.FK_Luokkahuone">
+            <End Role="Luokkahuone" EntitySet="Luokkahuone" />
+            <End Role="Leimaus" EntitySet="Leimaus" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Leimaus">
+          <Key>
+            <PropertyRef Name="OpiskelijaID" />
+          </Key>
+          <Property Name="OpiskelijaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LuokkahuoneID" Type="Int32" />
+          <Property Name="Sisään" Type="DateTime" Precision="3" />
+          <Property Name="Ulos" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Luokkahuone" Relationship="ScrumModel.FK_Luokkahuone" FromRole="Leimaus" ToRole="Luokkahuone" />
+        </EntityType>
+        <EntityType Name="Luokkahuone">
+          <Key>
+            <PropertyRef Name="LuokkahuoneID" />
+          </Key>
+          <Property Name="LuokkahuoneID" Type="Int32" Nullable="false" />
+          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Leimaus" Relationship="ScrumModel.FK_Luokkahuone" FromRole="Luokkahuone" ToRole="Leimaus" />
+        </EntityType>
+        <EntityType Name="Opettajat">
+          <Key>
+            <PropertyRef Name="OpettajaID" />
+          </Key>
+          <Property Name="OpettajaID" Type="Int32" Nullable="false" />
+          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Opiskelijat">
+          <Key>
+            <PropertyRef Name="OpiskelijaID" />
+          </Key>
+          <Property Name="OpiskelijaID" Type="Int32" Nullable="false" />
+          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tuntiraportti">
+          <Key>
+            <PropertyRef Name="OpiskelijaID" />
+          </Key>
+          <Property Name="OpiskelijaID" Type="Int32" Nullable="false" />
+          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LuokkahuoneID" Type="Int32" />
+          <Property Name="Sisään" Type="DateTime" Precision="3" />
+          <Property Name="Ulos" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Luokkahuone">
+          <End Type="ScrumModel.Luokkahuone" Role="Luokkahuone" Multiplicity="0..1" />
+          <End Type="ScrumModel.Leimaus" Role="Leimaus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Luokkahuone">
+              <PropertyRef Name="LuokkahuoneID" />
+            </Principal>
+            <Dependent Role="Leimaus">
+              <PropertyRef Name="LuokkahuoneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ScrumModelStoreContainer" CdmEntityContainer="ScrumEntities">
+    <EntitySetMapping Name="Leimaus">
+      <EntityTypeMapping TypeName="IsTypeOf(ScrumModel.Leimaus)">
+        <MappingFragment StoreEntitySet="Leimaus">
+          <ScalarProperty Name="OpiskelijaID" ColumnName="OpiskelijaID" />
+          <ScalarProperty Name="LuokkahuoneID" ColumnName="LuokkahuoneID" />
+          <ScalarProperty Name="Sisään" ColumnName="Sisään" />
+          <ScalarProperty Name="Ulos" ColumnName="Ulos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Luokkahuone">
+      <EntityTypeMapping TypeName="IsTypeOf(ScrumModel.Luokkahuone)">
+        <MappingFragment StoreEntitySet="Luokkahuone">
+          <ScalarProperty Name="LuokkahuoneID" ColumnName="LuokkahuoneID" />
+          <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
+          <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Opettajat">
+      <EntityTypeMapping TypeName="IsTypeOf(ScrumModel.Opettajat)">
+        <MappingFragment StoreEntitySet="Opettajat">
+          <ScalarProperty Name="OpettajaID" ColumnName="OpettajaID" />
+          <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
+          <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Opiskelijat">
+      <EntityTypeMapping TypeName="IsTypeOf(ScrumModel.Opiskelijat)">
+        <MappingFragment StoreEntitySet="Opiskelijat">
+          <ScalarProperty Name="OpiskelijaID" ColumnName="OpiskelijaID" />
+          <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
+          <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tuntiraportti">
+      <EntityTypeMapping TypeName="IsTypeOf(ScrumModel.Tuntiraportti)">
+        <MappingFragment StoreEntitySet="Tuntiraportti">
+          <ScalarProperty Name="OpiskelijaID" ColumnName="OpiskelijaID" />
+          <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
+          <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
+          <ScalarProperty Name="LuokkahuoneID" ColumnName="LuokkahuoneID" />
+          <ScalarProperty Name="Sisään" ColumnName="Sisään" />
+          <ScalarProperty Name="Ulos" ColumnName="Ulos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

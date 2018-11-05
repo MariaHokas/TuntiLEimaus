@@ -11,7 +11,7 @@ namespace TuntiLeimaus.Controllers
         // GET: Leimaus
         public ActionResult Index()
         {
-            return View();
+           return View();
         }
     }
 }
