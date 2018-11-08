@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuntiLeimaus", "TuntiLeimaus\TuntiLeimaus.csproj", "{69E3892E-C2D5-4677-88B8-5D4D724F427C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuntiLeimausMVC", "TuntiLeimausMVC\TuntiLeimausMVC.csproj", "{A5B1D272-5E19-425E-90C4-D24D69D3DE87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{69E3892E-C2D5-4677-88B8-5D4D724F427C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69E3892E-C2D5-4677-88B8-5D4D724F427C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69E3892E-C2D5-4677-88B8-5D4D724F427C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69E3892E-C2D5-4677-88B8-5D4D724F427C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5B1D272-5E19-425E-90C4-D24D69D3DE87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5B1D272-5E19-425E-90C4-D24D69D3DE87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5B1D272-5E19-425E-90C4-D24D69D3DE87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5B1D272-5E19-425E-90C4-D24D69D3DE87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
