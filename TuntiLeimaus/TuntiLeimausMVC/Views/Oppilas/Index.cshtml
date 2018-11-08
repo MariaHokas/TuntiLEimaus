@@ -1,0 +1,41 @@
+﻿@model IEnumerable<TuntiLeimausMVC.Models.Tuntiraportti>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h1>Oma tuntiraporttini</h1>
+    <p>Tarkastele omaa tuntiraporttiasi</p>
+
+    <table class=" table table-striped">
+        <thead>
+            <tr>
+                <th>OpiskelijaID</th>
+                <th>Etunimi</th>
+                <th>Sukunimi</th>
+                <th>LuokkahuoneID</th>
+                <th>Sisään</th>
+                <th>Ulos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TuntiLeimausMVC.Models.Tuntiraportti tunt in Model)
+            {
+                <tr>
+                    <td>@tunt.OpiskelijaID</td>
+                    <td>@tunt.Etunimi</td>
+                    <td>@tunt.Sukunimi</td>
+                    <td>@tunt.LuokkahuoneID</td>
+                    <td>@tunt.Sisään</td>
+                    <td>@tunt.Ulos</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</body>
+</html>

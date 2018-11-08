@@ -13,6 +13,7 @@ namespace TuntiLeimausMVC.Controllers
         // GET: Leimaus
         public ActionResult Index()
         {
+
             return View();
         }
         public JsonResult GetList()
