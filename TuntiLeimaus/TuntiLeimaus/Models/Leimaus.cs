@@ -15,10 +15,11 @@ namespace TuntiLeimaus.Models
     public partial class Leimaus
     {
         public int OpiskelijaID { get; set; }
+        public string Etunimi { get; set; }
+        public string Sukunimi { get; set; }
         public Nullable<int> LuokkahuoneID { get; set; }
-        public Nullable<System.DateTime> Sisään { get; set; }
-        public Nullable<System.DateTime> Ulos { get; set; }
-    
-        public virtual Luokkahuone Luokkahuone { get; set; }
+        public Nullable<System.DateTime> Paivamaara { get; set; }
+        public Nullable<System.TimeSpan> Sisaan { get; set; }
+        public Nullable<System.TimeSpan> Ulos { get; set; }
     }
 }
