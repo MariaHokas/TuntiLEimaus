@@ -6,6 +6,16 @@
 
 <h1>Päivitä opiskelijan tuntiraporttia</h1>
 
+<head>
+    <title>Leimaus</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
 @section scripts {
 
     <script type="text/javascript">
@@ -23,7 +33,7 @@
                         "<td>" + tuntiraportti[index].LuokkahuoneID + "</td>" +
                         "<td>" + tuntiraportti[index].Sisään + "</td>" +
                         "<td>" + tuntiraportti[index].Ulos + "</td>"
-                        "</tr>\r\n"
+                    "</tr>\r\n"
                 }
 
                 $("#opiskelijaidList tbody").html(html);
@@ -68,30 +78,30 @@
                         $("#opiskelijaidModalDialog").modal("show");
                     });
 
-                        $("#opiskelijaidModalSaveButton").click(function () {
-                            // luetaan käyttäjän syöttämät kentät
-                            var details = {
-                                OpiskelijaID: $("#opiskelijaidModal_OpiskelijaID").val(),
-                                Etunimi: $("#opiskelijaidModal_Etunimi").val(),
-                                Sukunimi: $("#opiskelijaidModal_Sukunimi").val(),
-                                LuokkahuoneID: $("#opiskelijaidModal_LuokkahuoneID").val(),
-                                Sisään: $("#opiskelijaidModal_Sisään").val(),
-                                Ulos: $("#opiskelijaidModal_Ulos").val()
-                            };
+                    $("#opiskelijaidModalSaveButton").click(function () {
+                        // luetaan käyttäjän syöttämät kentät
+                        var details = {
+                            OpiskelijaID: $("#opiskelijaidModal_OpiskelijaID").val(),
+                            Etunimi: $("#opiskelijaidModal_Etunimi").val(),
+                            Sukunimi: $("#opiskelijaidModal_Sukunimi").val(),
+                            LuokkahuoneID: $("#opiskelijaidModal_LuokkahuoneID").val(),
+                            Sisään: $("#opiskelijaidModal_Sisään").val(),
+                            Ulos: $("#opiskelijaidModal_Ulos").val()
+                        };
 
-                            $.post("/opiskelijaid/update/", details, function (status) {
-                                if (status == true) {
-                                    alert("Uudet tiedot tallennettu!");
-                                    $("#opiskelijaidModalDialog").modal("hide");
-                                    päivitäTuntilistaus();
-                                }
-                                else {
-                                    alert("Tallennus ei onnistunut, yritä uudelleen!");
-                                }
-                            });
+                        $.post("/opiskelijaid/update/", details, function (status) {
+                            if (status == true) {
+                                alert("Uudet tiedot tallennettu!");
+                                $("#opiskelijaidModalDialog").modal("hide");
+                                päivitäTuntilistaus();
+                            }
+                            else {
+                                alert("Tallennus ei onnistunut, yritä uudelleen!");
+                            }
                         });
+                    });
 
-                        console.log("Alustus valmis!");
+                    console.log("Alustus valmis!");
 
                 });
 

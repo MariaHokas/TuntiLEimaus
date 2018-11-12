@@ -11,11 +11,12 @@
     @Scripts.Render("~/bundles/modernizr")
     <style>
         body, html {
-            background-image: url("../../Images/point_logo1.png");
+            background-image: url("../../Images/Careeria logo[185].jpg");
             background-repeat: no-repeat;
             background-position: left top;
             background-size: 200px;
-            margin: 5px;
+            margin: 10px;
+           
         }
 
         .navbar {
@@ -78,12 +79,17 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+        h1
+        { 
+
+            font-family: Arial, Helvetica, sans-serif;
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed w3-margin-top" style="background-color:rgb(0,0,140);">
+    <div class="navbar navbar-inverse navbar-fixed w3-margin-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle w3-text-white" data-toggle="collapse" data-target=".navbar-collapse">
@@ -97,24 +103,29 @@
                 <ul class="nav navbar-nav">
                     <!--<li>@Html.ActionLink("Home", "Index", "Home")</li>--->
                     <!---<li>@Html.ActionLink("Leimaus", "Index", "Leimaus")</li>-->
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Opettaja", "Index", "Opettaja")</li>
                     <li>@Html.ActionLink("Oppilas", "Index", "Oppilas")</li>
-                    @*<li>@Html.ActionLink("Tuntiraportti", "Contact", "Tuntiraportti")</li>*@
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Links <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.pointcollege.fi/">Point College</a></li>
+                            <li><a href="https://www.office.com/?auth=2&home=1">Sähköposti</a></li>
+                            <li><a href="https://moodle.pointcollege.fi/login/index.php">Moodle</a></li>
+                            <li><a href="https://wilma.pointcollege.fi/">Wilma</a></li>
+                        </ul>
+                    </li>
+                        @*<li>@Html.ActionLink("Tuntiraportti", "Contact", "Tuntiraportti")</li>*@
                 </ul>
             </div>
         </div>
     </div>
-    <div id="bg"></div>
 
-    @RenderBody()
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
 
     <br />
     <div class="w3-container-fluid body-content">
-        <footer class="w3-container w3-black w3-center" style="background-image:url(../../Images/bookcase-1869616_960_720.jpg)">
+        @RenderBody()
+        <footer class="w3-container w3-black w3-center" style="margin-top:100px;">
             <p class="w3-margin-top">Find us on Social Media</p>
             <a href="https://www.facebook.com/PointCollege1/" class="fa fa-facebook-official fa-2x"></a>
             <a href="https://www.instagram.com/pointcollegeporvoo/" class="fa fa-instagram fa-2x"></a>
@@ -124,5 +135,8 @@
             <p class="w3-margin-top">&copy; @DateTime.Now.Year - TuntiLeimaus</p>
         </footer>
     </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
