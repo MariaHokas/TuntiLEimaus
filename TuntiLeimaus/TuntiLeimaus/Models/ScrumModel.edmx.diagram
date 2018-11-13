@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="649af5c3822a43abae26d359dc86316b" Name="Diagram1">
+        <EntityTypeShape EntityType="ScrumModel.Leimaus" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="ScrumModel.Luokkahuone" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="ScrumModel.Opettajat" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ScrumModel.Opiskelijat" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ScrumModel.Tuntiraportti" Width="1.5" PointX="4.75" PointY="3.75" />
+        <AssociationConnector Association="ScrumModel.FK_Luokkahuone" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
