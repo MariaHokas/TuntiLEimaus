@@ -25,10 +25,10 @@ namespace TuntiLeimausMVC.Controllers
             var model = (from p in entities.Leimaus
                          select new
                          {
-                             p.OpiskelijaID,
-                             p.LuokkahuoneID,
-                             p.Sisään,
-                             p.Ulos
+                         p.OpiskelijaID,
+                         p.LuokkahuoneID,
+                         p.Sisään,
+                         p.Ulos
 
                          }).ToList();
 
@@ -77,7 +77,7 @@ namespace TuntiLeimausMVC.Controllers
                 {
                     OpiskelijaID = pro.OpiskelijaID,
                     LuokkahuoneID = pro.LuokkahuoneID,
-                    Sisään = pro.Sisään,
+                    Sisään = DateTime.Now,
                     Ulos = pro.Ulos
 
                 };
@@ -87,7 +87,27 @@ namespace TuntiLeimausMVC.Controllers
                 entities.SaveChanges();
                 OK = true;
             }
+            else
+            //tästä ehkä lähdetty muokkaamaan.
+            {
+                // muokkaus, haetaan id:n perusteella riviä tietokannasta
 
+                Leimaus dbItem = (from t in entities.Leimaus
+                                  where t.OpiskelijaID == id
+                                  select t).FirstOrDefault();
+
+                if (dbItem != null)
+                {
+                    dbItem.OpiskelijaID = pro.OpiskelijaID;
+                    dbItem.LuokkahuoneID = pro.LuokkahuoneID;
+                    dbItem.Sisään = pro.Sisään;
+                    dbItem.Ulos = DateTime.Now;
+
+                    // tallennus tietokantaan
+                    entities.SaveChanges();
+                    OK = true;
+                }
+            }
             entities.Dispose();
             return Json(OK, JsonRequestBehavior.AllowGet);
 

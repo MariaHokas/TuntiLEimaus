@@ -81,37 +81,58 @@
 </head>
 
 <body>
-    <script>
-        function addZero(i) {
-            if (i < 10) {
-                i = "0" + i;
-            }
-            return i;
-        }
+    @section scripts {
 
-        function myTime() {
-            var d = new Date();
-            var x = document.getElementById("time");
-            var h = addZero(d.getHours());
-            var m = addZero(d.getMinutes());
-            var s = addZero(d.getSeconds());
-            x.innerHTML = h + ":" + m + ":" + s;
-        }
+    <script type="text/javascript">
 
+
+        function päivitäAsiakaslistaus() {
+            $.getJSON("/leimaus/getlist", null, function (json) {
+                var leimaus = JSON.parse(json);
+
+                var html = "";
+                for (var index = 0; index < leimaus.length; index++) {
+                    html += "<tr>" +
+                        "<td>" + leimaus[index].OpiskelijaID + "</td>" +
+                        "<td>" + leimaus[index].LuokkahuoneID + "</td>" +
+                        "<td>" + leimaus[index].Sisään + "</td>" +
+                        "<td>" + leimaus[index].Ulos + "</td>" +
+                        "</tr>\r\n";
+                }
+                $("#leimausList tbody").html(html);         
+            });
+          }
+
+
+            // sivun alustaminen
+            $(function () {
+                päivitäAsiakaslistaus();
+                $("#SaveButton").click(function () {
+                    // luetaan käyttäjän syöttämät kentät
+                    var details = {
+                        OpiskelijaID: $("#leiModal_Oid").val(),
+                        LuokkahuoneID: $("#leiModal_Lid").val(),
+                        Sisään: $("#leiModal_Sid").val(),
+                    };
+
+                    $.post("/leimaus/update/", details, function (status) {
+                        if (status == true) {
+                            alert("Uudet tiedot tallennettu!");
+                            päivitäAsiakaslistaus();
+                        }
+                        else {
+                            alert("Tallennus ei onnistunut, yritä uudelleen!");
+                        }
+                    });
+                });
+
+            console.log("Alustus valmis!");
+
+        });
+                    
     </script>
 
-    <script>
-
-        function paivaMaara() {
-            var v = new Date()
-            var j = document.getElementById("day");
-            var y = (v.getFullYear());
-            var o = (v.getMonth() + 1);
-            var p = (v.getDate());
-            j.innerHTML = p + "-" + o + "-" + y;
-        }
-
-    </script>
+    }
 
     <div class="w3-content" style="max-width:1400px">
 
@@ -129,14 +150,14 @@
                     <form class="w3-center">
                         <div class="form-group">
                             <label for="Opiskelijanumero">Opiskelijanumero:</label>
-                            <input type="text" class="form-control" id="opiskelijanumero" placeholder="Anna opiskelijanumero" name="numero">
+                            <input type="text" class="form-control" id="leiModal_Oid" placeholder="Anna opiskelijanumero">
                         </div>
                         <div class="form-group">
                             <label for="Luokkanumero">Luokkanumero:</label>
-                            <input type="text" class="form-control" id="luokkanumero" placeholder="Anna luokkahuoneen numero" name="pwd">
+                            <input type="text" class="form-control" id="leiModal_Lid" placeholder="Anna luokkahuoneen numero">
                         </div>
                         <div>
-                            <button class="button" onclick="myTime(); paivaMaara()">Sisään</button>
+                            <button type="button" class="button" id="SaveButton">Submit</button>
 
                             <p id="demo"></p>
                             <p id="demo1"></p>
@@ -148,11 +169,21 @@
                         </div>
                     </form>
                 </div>
-            </div>         
+            </div>
         </div> <!-- END GRID -->
         <!-- END TuntiLeimaus ENTRIES -->
-
         <!-- Introduction menu -->
     </div>
     <!-- END GRID -->
+    <table class="table table-striped" id="leimausList">
+        <thead>
+            <tr>
+                <th>Opiskelija</th>
+                <th>Luokka</th>
+                <th>Sisään</th>
+                <th>Ulos</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 </body>
