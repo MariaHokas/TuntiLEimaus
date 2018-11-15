@@ -36,6 +36,9 @@
                     "</tr>\r\n"
                 }
 
+
+
+
                 $("#opiskelijaidList tbody").html(html);
 
                 // tietojen muokkaus
@@ -61,50 +64,55 @@
                         $("#opiskelijaidModalDialog").modal("show");
                     });
                 });
+            })
 
-                $(function () {
-                    päivitäOpiskelijaIDlistaus();
-                    $("#lisaaUusiOpiskelijaIDButton").click(function () {
+        
+                päivitäOpiskelijaIDlistaus();
+        }
+            $(function () {
+                //päivitäTuntiraportti();
+                $("#lisaaUusiOpiskelijaIDButton").click(function () {
 
-                        // Tyhjennetään ikkunan tiedot
-                        $("#opiskelijaidModal_OpiskelijaID").val("(Uusi ID)");
-                        $("#opiskelijaidModal_Etunimi").val("");
-                        $("#opiskelijaidModal_Sukunimi").val("");
-                        $("#opiskelijaidModal_LuokkahuoneID").val("");
-                        $("#opiskelijaidModal_Sisään").val("");
-                        $("#opiskelijaidModal_Ulos").val("");
+                    // Tyhjennetään ikkunan tiedot
+                    $("#opiskelijaidModal_OpiskelijaID").val("(Uusi ID)");
+                    $("#opiskelijaidModal_Etunimi").val("");
+                    $("#opiskelijaidModal_Sukunimi").val("");
+                    $("#opiskelijaidModal_LuokkahuoneID").val("");
+                    $("#opiskelijaidModal_Sisään").val("");
+                    $("#opiskelijaidModal_Ulos").val("");
 
-                        $("#opiskelijaidModalTitle").text("Lisää uudet tunnit opiskelijalle");
-                        $("#opiskelijaidModalDialog").modal("show");
+                    $("#opiskelijaidModalTitle").text("Lisää uudet tunnit opiskelijalle");
+                    $("#opiskelijaidModalDialog").modal("show");
+                });
+                console.log("Alustus valmis!");
+
+                $("#opiskelijaidModalSaveButton").click(function () {
+                    // luetaan käyttäjän syöttämät kentät
+                    var details = {
+                        OpiskelijaID: $("#opiskelijaidModal_OpiskelijaID").val(),
+                        Etunimi: $("#opiskelijaidModal_Etunimi").val(),
+                        Sukunimi: $("#opiskelijaidModal_Sukunimi").val(),
+                        LuokkahuoneID: $("#opiskelijaidModal_LuokkahuoneID").val(),
+                        Sisään: $("#opiskelijaidModal_Sisään").val(),
+                        Ulos: $("#opiskelijaidModal_Ulos").val()
+                    };
+
+                    $.post("/opiskelijaid/update/", details, function (status) {
+                        if (status == true) {
+                            alert("Uudet tiedot tallennettu!");
+                            $("#opiskelijaidModalDialog").modal("hide");
+                            päivitäTuntilistaus();
+                        }
+                        else {
+                            alert("Tallennus ei onnistunut, yritä uudelleen!");
+                        }
                     });
-
-                    $("#opiskelijaidModalSaveButton").click(function () {
-                        // luetaan käyttäjän syöttämät kentät
-                        var details = {
-                            OpiskelijaID: $("#opiskelijaidModal_OpiskelijaID").val(),
-                            Etunimi: $("#opiskelijaidModal_Etunimi").val(),
-                            Sukunimi: $("#opiskelijaidModal_Sukunimi").val(),
-                            LuokkahuoneID: $("#opiskelijaidModal_LuokkahuoneID").val(),
-                            Sisään: $("#opiskelijaidModal_Sisään").val(),
-                            Ulos: $("#opiskelijaidModal_Ulos").val()
-                        };
-
-                        $.post("/opiskelijaid/update/", details, function (status) {
-                            if (status == true) {
-                                alert("Uudet tiedot tallennettu!");
-                                $("#opiskelijaidModalDialog").modal("hide");
-                                päivitäTuntilistaus();
-                            }
-                            else {
-                                alert("Tallennus ei onnistunut, yritä uudelleen!");
-                            }
-                        });
-                    });
-
-                    console.log("Alustus valmis!");
-
                 });
 
+                console.log("Alustus valmis!");
+
+            });
+         
     </script>
 }
 
