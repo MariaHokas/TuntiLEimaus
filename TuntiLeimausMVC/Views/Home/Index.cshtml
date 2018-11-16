@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<head>
+    <title>Leimaus</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .page-header {
+            text-align: center;
+        }
+        h1, p {
+
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .button {
+            background-color: rgb(0,0,0);
+            border-radius: 8px;
+            color: lightgray;
+            padding: 20px 107px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+
+            .button:hover {
+                background-color: rgb(0,0,140);
+                opacity: 0.6;
+                color: white;
+            }
+
+            .button:active {
+                background-color: rgb(0,0,185);
+                transform: translateY(4px);
+            }
+
+        .button2 {
+            background-color: rgb(0,0,0);
+            border-radius: 8px;
+            color: lightgray;
+            padding: 20px 116px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+
+            .button2:hover {
+                background-color: rgb(0,0,140);
+                opacity: 0.6;
+                color: white;
+            }
+
+            .button2:active {
+                background-color: rgb(0,0,185);
+                transform: translateY(4px);
+            }
+
+
+        .span {
+            padding: 20px 90px;
+        }
+    </style>
+</head>
+
+<body>
+    @section scripts {
+
+    <script type="text/javascript">
+
+
+        function päivitäAsiakaslistaus() {
+            $.getJSON("/leimaus/getlist", null, function (json) {
+                var leimaus = JSON.parse(json);
+
+                var html = "";
+                for (var index = 0; index < leimaus.length; index++) {
+                    html += "<tr>" +
+                        "<td>" + leimaus[index].OpiskelijaID + "</td>" +
+                        "<td>" + leimaus[index].LuokkahuoneID + "</td>" +
+                        "<td>" + leimaus[index].Sisään + "</td>" +
+                        "<td>" + leimaus[index].Ulos + "</td>" +
+                        "</tr>\r\n";
+                }
+                $("#leimausList tbody").html(html);         
+            });
+          }
+
+
+            // sivun alustaminen
+            $(function () {
+                päivitäAsiakaslistaus();
+                $("#SaveButton").click(function () {
+                    // luetaan käyttäjän syöttämät kentät
+                    var details = {
+                        OpiskelijaID: $("#leiModal_Oid").val(),
+                        LuokkahuoneID: $("#leiModal_Lid").val(),
+                        Sisään: $("#leiModal_Sid").val(),
+                    };
+
+                    $.post("/leimaus/update/", details, function (status) {
+                        if (status == true) {
+                            alert("Uudet tiedot tallennettu!");
+                            päivitäAsiakaslistaus();
+                        }
+                        else {
+                            alert("Tallennus ei onnistunut, yritä uudelleen!");
+                        }
+                    });
+                });
+
+            console.log("Alustus valmis!");
+
+        });
+                    
+    </script>
+
+    }
+
+    <div class="w3-content" style="max-width:1400px">
+
+        <!-- Header -->
+        <header class="w3-container w3-center w3-padding-32" style="margin:10px">
+            <h1><b>TuntiLeimaus</b></h1>
+            <p class="w3-text-grey">Tervetuloa Point Collegen </p> <p> <span class="w3-tag w3-text-white" style="background-color:rgb(0,0,0);">Tuntileimaukseen</span></p>
+        </header>
+        <!-- Grid -->
+
+        <div class="w3-row w3-center w3-content">
+            <!-- Sites -->
+            <div>
+                <div class="container">
+                    <form class="w3-center">
+                        <div class="form-group">
+                            <label for="Opiskelijanumero">Opiskelijanumero:</label>
+                            <input type="text" class="form-control" id="leiModal_Oid" placeholder="Anna opiskelijanumero">
+                        </div>
+                        <div class="form-group">
+                            <label for="Luokkanumero">Luokkanumero:</label>
+                            <input type="text" class="form-control" id="leiModal_Lid" placeholder="Anna luokkahuoneen numero">
+                        </div>
+                        <div>
+                            <button type="button" class="button" id="SaveButton">Submit</button>
+
+                            <p id="demo"></p>
+                            <p id="demo1"></p>
+                        </div>
+                        <div>
+                            <button class="button2" onclick="myTime(); paivaMaara()">Ulos</button>
+                            <p id="time"></p>
+                            <p id="day"></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> <!-- END GRID -->
+        <!-- END TuntiLeimaus ENTRIES -->
+        <!-- Introduction menu -->
+    </div>
+    <!-- END GRID -->
+    <table class="table table-striped" id="leimausList">
+        <thead>
+            <tr>
+                <th>Opiskelija</th>
+                <th>Luokka</th>
+                <th>Sisään</th>
+                <th>Ulos</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
