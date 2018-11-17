@@ -22,3 +22,67 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*Tuntileimauksen oma CSS*/
+.page-header {
+	text-align: center;
+}
+
+h1, p {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.button {
+	background-color: rgb(0,0,0);
+	border-radius: 8px;
+	color: lightgray;
+	padding: 20px 107px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+	.button:hover {
+		background-color: rgb(0,0,140);
+		opacity: 0.6;
+		color: white;
+	}
+
+	.button:active {
+		background-color: rgb(0,0,185);
+		transform: translateY(4px);
+	}
+
+.button2 {
+	background-color: rgb(0,0,0);
+	border-radius: 8px;
+	color: lightgray;
+	padding: 20px 116px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+	.button2:hover {
+		background-color: rgb(0,0,140);
+		opacity: 0.6;
+		color: white;
+	}
+
+	.button2:active {
+		background-color: rgb(0,0,185);
+		transform: translateY(4px);
+	}
+
+
+.span {
+	padding: 20px 90px;
+}

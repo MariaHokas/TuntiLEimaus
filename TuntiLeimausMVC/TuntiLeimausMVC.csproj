@@ -204,7 +204,6 @@
       <LastGenOutput>ScrumEntities.Context.cs</LastGenOutput>
       <DependentUpon>ScrumEntities.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\ScrumEntities.edmx.sql" />
     <Content Include="Models\ScrumEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ScrumEntities.edmx</DependentUpon>
