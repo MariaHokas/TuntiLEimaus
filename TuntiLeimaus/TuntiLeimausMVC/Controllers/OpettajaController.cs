@@ -13,7 +13,7 @@ namespace TuntiLeimausMVC.Controllers
         // GET: Opettaja
         public ActionResult Index()
         {
-
+            
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
             List<Tuntiraportti> model = entities.Tuntiraportti.ToList();
             entities.Dispose();
@@ -72,14 +72,15 @@ namespace TuntiLeimausMVC.Controllers
         {
 
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
+            int id = tunt.OpiskelijaID;
 
             //oletetaan että tallennusoperaatio ei onnistu
             bool OK = false;
 
             // onko kyseessä muokkaus vai uuden lisääminen?
-            //if (id == "(uusi)")
-            if (tunt.OpiskelijaID == 0)
-            //if (id == null)
+            //if (id.ToString() == null)
+            //if (tunt.OpiskelijaID == 0)
+            if (id == 0)
             {
                 // kyseessä on uuden asiakkaan lisääminen, kopioidaan kentät
                 Tuntiraportti dbItem = new Tuntiraportti()
@@ -99,7 +100,7 @@ namespace TuntiLeimausMVC.Controllers
             }
             else
             {
-                //haetaan id:n perusteella rivi SQL tietokannasta
+                //haetaan id:n perusteella rivi SQL tietokannasta       //h. muutettu c.
                 Tuntiraportti dbItem = (from h in entities.Tuntiraportti
                                         where h.OpiskelijaID == tunt.OpiskelijaID
                                         select h).FirstOrDefault(); //haetaan vain yhden henkilön tiedot
