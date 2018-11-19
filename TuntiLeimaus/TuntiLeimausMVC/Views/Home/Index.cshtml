@@ -25,7 +25,7 @@
 
         .button {
             background-color: rgb(0,0,0);
-            border-radius: 8px;
+            border-radius: 200px;
             color: lightgray;
             padding: 20px 107px;
             text-align: center;
@@ -50,7 +50,7 @@
 
         .button2 {
             background-color: rgb(0,0,0);
-            border-radius: 8px;
+            border-radius: 80px;
             color: lightgray;
             padding: 20px 116px;
             text-align: center;
@@ -99,10 +99,52 @@
                         "<td>" + leimaus[index].Ulos + "</td>" +
                         "</tr>\r\n";
                 }
-                $("#leimausList tbody").html(html);         
+                $("#leimausList tbody").html(html); 
+                
+                // tietojen muokkaus-lisätty
+                $("UlosButton").click(function () {
+                    //etsitään asiakkglyphicon-pencilaan tiedot klikatulta riviltä
+                    var opiskelijaid = $(this).parent().parent().next().text();
+
+                    //alert(Henkiloid);
+
+                    // haetaan asiakkaan tiedot id:n perusteella
+                    $.getJSON("/leimaus/getsingleleimaus/" + opiskelijaid, null, function (json2) {
+                        var leimaus = JSON.parse(json2);
+
+                        // kopioidaan tiedot ikkunaan
+                        $("#leiModal_Oid").val(leimaus.Tunnitid);
+                        $("#leiModal_Lid").val(leimaus.Projektiid);
+                        $("#proModal_Sisaan").val(leimaus.Henkiloid);
+                        $("#proModal_Ulos").val(leimaus.Pvm);
+
+
+                        // näytetään ikkuna
+                        $("#tunnModalTitle").text("Muokkaa tietoja");
+                        $("#tunnModalDialog").modal("show");
+                    });
+                });
+                    //tästä lisätty
             });
           }
 
+        $(function () {
+            päivitäAsiakaslistaus();
+
+            $("#ulosTunnilta").click(function () {
+
+                // tyhjennetään ikkunan tiedot
+                $("#leiModal_Oid").val("");
+                $("#leiModal_Lid").val("");
+                $("#leiModal_Sid").val("");
+                $("#tleiModal_Uid").val("");
+
+                // näytetään ikkuna
+                $("#tunnModalTitle").text("Muokkaa tietoja");
+                $("#tunnModalDialog").modal("show");
+            });
+        });
+        
 
             // sivun alustaminen
             $(function () {
@@ -143,11 +185,11 @@
         </header>
         <!-- Grid -->
 
-        <div class="w3-row w3-center w3-content">
+        <div class="w3-row w3-content">
             <!-- Sites -->
             <div>
                 <div class="container">
-                    <form class="w3-center">
+                    <form class="">
                         <div class="form-group">
                             <label for="Opiskelijanumero">Opiskelijanumero:</label>
                             <input type="text" class="form-control" id="leiModal_Oid" placeholder="Anna opiskelijanumero">
@@ -157,13 +199,13 @@
                             <input type="text" class="form-control" id="leiModal_Lid" placeholder="Anna luokkahuoneen numero">
                         </div>
                         <div>
-                            <button type="button" class="button" id="SaveButton">Submit</button>
+                            <button type="button" class="w3-circle" id="SaveButton">+</button>
 
                             <p id="demo"></p>
                             <p id="demo1"></p>
                         </div>
                         <div>
-                            <button class="button2" onclick="myTime(); paivaMaara()">Ulos</button>
+                            <button type="button" class="button" id="UlosButton">Submit</button>
                             <p id="time"></p>
                             <p id="day"></p>
                         </div>
