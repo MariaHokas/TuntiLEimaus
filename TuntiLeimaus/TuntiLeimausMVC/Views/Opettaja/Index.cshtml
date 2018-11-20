@@ -19,12 +19,12 @@
 @section scripts {
 
     <script type="text/javascript">
-        function päivitäTuntiraportti() {
-            $.getJSON("/opiskelijaid/getlist", null, function (json) {
+        function päivitäTuntiraportti() { //"/opiskelijaid/getlist"
+            $.getJSON("/opettaja/getlist", null, function (json) {
                 var tuntiraportti = JSON.parse(json);
 
                 var html = "";
-                for (var index = 0; index < opiskelijaid.length; index++) {
+                for (var index = 0; index < /*opiskelijaid*/tuntiraportti.length; index++) {
                     html += "<tr>" +
                         "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
                         "<td>" + tuntiraportti[index].OpiskelijaID + "</td>" +
@@ -36,6 +36,9 @@
                     "</tr>\r\n"
                 }
 
+
+
+
                 $("#opiskelijaidList tbody").html(html);
 
                 // tietojen muokkaus
@@ -44,8 +47,8 @@
                     var opiskelijaID = $(this).parent().parent().next().text();
                     //alert(opiskelijaID);
 
-                    // haetaan opiskelijan tiedot id:n perusteella
-                    $.getJSON("/opiskelijaid/getsingleopiskelijaid/" + opiskelijaID, null, function (json2) {
+                    // haetaan opiskelijan tiedot id:n perusteella //"/opiskelijaid/getsingleopiskelijaid/" korvattu "/opettaja/getsingleopiskelijaid/"
+                    $.getJSON("/opettaja/getsingleopiskelijaid/" + opiskelijaID, null, function (json2) {
                         var opiskelijaid = JSON.parse(json2);
 
                         // kopioidaan tiedot ikkunaan
@@ -61,22 +64,27 @@
                         $("#opiskelijaidModalDialog").modal("show");
                     });
                 });
+            })
 
-                $(function () {
-                    päivitäOpiskelijaIDlistaus();
-                    $("#lisaaUusiOpiskelijaIDButton").click(function () {
+        
+                //päivitäOpiskelijaIDlistaus();
+        }
+            $(function () {
+                //päivitäTuntiraportti();
+                $("#lisaaUusiTuntiButton").click(function () {
 
-                        // Tyhjennetään ikkunan tiedot
-                        $("#opiskelijaidModal_OpiskelijaID").val("(Uusi ID)");
-                        $("#opiskelijaidModal_Etunimi").val("");
-                        $("#opiskelijaidModal_Sukunimi").val("");
-                        $("#opiskelijaidModal_LuokkahuoneID").val("");
-                        $("#opiskelijaidModal_Sisään").val("");
-                        $("#opiskelijaidModal_Ulos").val("");
+                    // Tyhjennetään ikkunan tiedot
+                    $("#opiskelijaidModal_OpiskelijaID").val; //("Uusi ID")
+                    $("#opiskelijaidModal_Etunimi").val("");
+                    $("#opiskelijaidModal_Sukunimi").val("");
+                    $("#opiskelijaidModal_LuokkahuoneID").val("");
+                    $("#opiskelijaidModal_Sisään").val("");
+                    $("#opiskelijaidModal_Ulos").val("");
 
-                        $("#opiskelijaidModalTitle").text("Lisää uudet tunnit opiskelijalle");
-                        $("#opiskelijaidModalDialog").modal("show");
-                    });
+                    $("#opiskelijaidModalTitle").text("Lisää uudet tunnit opiskelijalle");
+                    $("#opiskelijaidModalDialog").modal("show");
+                
+                console.log("Alustus valmis!87");
 
                     $("#opiskelijaidModalSaveButton").click(function () {
                         // luetaan käyttäjän syöttämät kentät
@@ -88,23 +96,28 @@
                             Sisään: $("#opiskelijaidModal_Sisään").val(),
                             Ulos: $("#opiskelijaidModal_Ulos").val()
                         };
-
-                        $.post("/opiskelijaid/update/", details, function (status) {
+                        console.log("Tiedot luettu");
+                        $.post("/opettaja/update/", details, function (status) { ///opiskelijaid/update/ korvattu opettaja/update
                             if (status == true) {
                                 alert("Uudet tiedot tallennettu!");
                                 $("#opiskelijaidModalDialog").modal("hide");
-                                päivitäTuntilistaus();
+                                päivitäTuntiraportti();
+                                //päivitäTuntilistaus();
+                                console.log("Tallennus");
                             }
                             else {
                                 alert("Tallennus ei onnistunut, yritä uudelleen!");
+                                console.log("Tallennus Epäonnistui");
                             }
                         });
+            
                     });
-
-                    console.log("Alustus valmis!");
-
                 });
+                päivitäTuntiraportti();
+                console.log("Alustus valmis!114");
 
+            });
+         
     </script>
 }
 
@@ -120,6 +133,7 @@
             <th>LuokkahuoneID</th>
             <th>Sisään</th>
             <th>Ulos</th>
+            <th></th>
         </tr>
     </thead>
     <tbody></tbody>
