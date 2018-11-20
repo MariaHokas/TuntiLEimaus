@@ -164,34 +164,37 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Leimaus.cs">
-      <DependentUpon>ScrumEntities.tt</DependentUpon>
+      <DependentUpon>TuntileimausModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Luokkahuone.cs">
-      <DependentUpon>ScrumEntities.tt</DependentUpon>
+      <DependentUpon>TuntileimausModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Opettajat.cs">
-      <DependentUpon>ScrumEntities.tt</DependentUpon>
+      <DependentUpon>TuntileimausModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Opiskelijat.cs">
-      <DependentUpon>ScrumEntities.tt</DependentUpon>
+      <DependentUpon>TuntileimausModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ScrumEntities.Context.cs">
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>TuntileimausModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TuntileimausModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ScrumEntities.Context.tt</DependentUpon>
+      <DependentUpon>TuntileimausModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ScrumEntities.cs">
+    <Compile Include="Models\TuntileimausModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ScrumEntities.tt</DependentUpon>
+      <DependentUpon>TuntileimausModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ScrumEntities.Designer.cs">
+    <Compile Include="Models\TuntileimausModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ScrumEntities.edmx</DependentUpon>
+      <DependentUpon>TuntileimausModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Tuntiraportti.cs">
-      <DependentUpon>ScrumEntities.tt</DependentUpon>
+      <DependentUpon>TuntileimausModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -205,27 +208,29 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Careeria logo[185].jpg" />
-    <Content Include="Models\ScrumEntities.Context.tt">
+    <Content Include="Images\etusivu_taustakuva.png" />
+    <Content Include="Images\Koulu.PNG" />
+    <Content Include="Models\TuntileimausModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ScrumEntities.Context.cs</LastGenOutput>
-      <DependentUpon>ScrumEntities.edmx</DependentUpon>
+      <DependentUpon>TuntileimausModel.edmx</DependentUpon>
+      <LastGenOutput>TuntileimausModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ScrumEntities.tt">
+    <Content Include="Models\TuntileimausModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ScrumEntities.edmx</DependentUpon>
-      <LastGenOutput>ScrumEntities.cs</LastGenOutput>
+      <DependentUpon>TuntileimausModel.edmx</DependentUpon>
+      <LastGenOutput>TuntileimausModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\ScrumEntities.edmx">
+    <EntityDeploy Include="Models\TuntileimausModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ScrumEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>TuntileimausModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ScrumEntities.edmx.diagram">
-      <DependentUpon>ScrumEntities.edmx</DependentUpon>
+    <Content Include="Models\TuntileimausModel.edmx.diagram">
+      <DependentUpon>TuntileimausModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

@@ -25,6 +25,7 @@ namespace TuntiLeimausMVC.Controllers
             var model = (from p in entities.Leimaus
                          select new
                          {
+                         p.LeimausID,
                          p.OpiskelijaID,
                          p.LuokkahuoneID,
                          p.Sisään,
@@ -47,9 +48,10 @@ namespace TuntiLeimausMVC.Controllers
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
             //List<Customer> model = entities.Customers.ToList();
             var model = (from p in entities.Leimaus
-                         where p.OpiskelijaID == id
+                         where p.LeimausID == id
                          select new
                          {
+                             p.LeimausID,
                              p.OpiskelijaID,
                              p.LuokkahuoneID,
                              p.Sisään,
@@ -64,17 +66,18 @@ namespace TuntiLeimausMVC.Controllers
         public ActionResult Update(Leimaus pro)
         {
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
-            int id = pro.OpiskelijaID;
+            int id = pro.LeimausID;
 
             bool OK = false;
 
-            if (pro.OpiskelijaID == 0)
+            if (pro.LeimausID == 0)
 
             {
 
                 // kyseessä on uuden asiakkaan lisääminen, kopioidaan kentät
                 Leimaus dbItem = new Leimaus()
                 {
+                    LeimausID = pro.LeimausID,
                     OpiskelijaID = pro.OpiskelijaID,
                     LuokkahuoneID = pro.LuokkahuoneID,
                     Sisään = DateTime.Now,
@@ -93,11 +96,12 @@ namespace TuntiLeimausMVC.Controllers
                 // muokkaus, haetaan id:n perusteella riviä tietokannasta
 
                 Leimaus dbItem = (from t in entities.Leimaus
-                                  where t.OpiskelijaID == id
+                                  where t.LeimausID == id
                                   select t).FirstOrDefault();
 
                 if (dbItem != null)
                 {
+                    dbItem.LeimausID = pro.LeimausID;
                     dbItem.OpiskelijaID = pro.OpiskelijaID;
                     dbItem.LuokkahuoneID = pro.LuokkahuoneID;
                     dbItem.Sisään = pro.Sisään;

@@ -19,44 +19,51 @@
             text-align: center;
         }
         h1, p {
-
+            color: white;
             font-family: Arial, Helvetica, sans-serif;
+        }
+        .p {
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: medium;
         }
 
         .button {
-            background-color: rgb(0,0,0);
-            border-radius: 200px;
-            color: lightgray;
-            padding: 20px 107px;
+            background-color: rgb(255,255,255);
+            border-radius: 50%;
+            border-color: rgb(190,250,120);
+            color: rgb(195,185,175);
+            padding: 52px 20px;
             text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            /*text-decoration: none;*/
+            /*display: inline-block;*/
+            font-size: 20px;
+            margin-right: 40px;
+            margin-top: 30px;
+            /*cursor: pointer;*/
+            /*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);*/
         }
 
-            .button:hover {
-                background-color: rgb(0,0,140);
-                opacity: 0.6;
+            /*.button:hover {
+                background-color: rgba(0,0,0,0.19);
+                opacity: 0.9;
                 color: white;
             }
 
             .button:active {
-                background-color: rgb(0,0,185);
-                transform: translateY(4px);
-            }
+                background-color: rgb(240,240,240);
+                transform: translateY(10px);
+            }*/
 
         .button2 {
-            background-color: rgb(0,0,0);
-            border-radius: 80px;
-            color: lightgray;
-            padding: 20px 116px;
+            background-color: rgb(255,255,255);
+            border-radius: 50%;
+            color: rgb(195,185,175);
+            padding: 50px 30px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
+            font-size: 20px;
             margin: 4px 2px;
             cursor: pointer;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
@@ -77,78 +84,88 @@
         .span {
             padding: 20px 90px;
         }
+        /*body {
+            width: 400px;
+            height: 400px;
+            background-repeat: no-repeat, repeat;
+            background-image: url("../../Images/etusivu_taustakuva.png");
+        
+        }*/
+        .bgimg {
+            background-image: url('../../Images/etusivu_taustakuva.png');
+            min-height: 10%;
+            /*background-position: center;*/
+            background-size: cover;
+        }
     </style>
 </head>
 
 <body>
     @section scripts {
 
-    <script type="text/javascript">
+        <script type="text/javascript">
 
 
-        function päivitäAsiakaslistaus() {
-            $.getJSON("/leimaus/getlist", null, function (json) {
-                var leimaus = JSON.parse(json);
+            function päivitäAsiakaslistaus() {
+                $.getJSON("/leimaus/getlist", null, function (json) {
+                    var leimaus = JSON.parse(json);
 
-                var html = "";
-                for (var index = 0; index < leimaus.length; index++) {
-                    html += "<tr>" +
-                        "<td>" + leimaus[index].OpiskelijaID + "</td>" +
-                        "<td>" + leimaus[index].LuokkahuoneID + "</td>" +
-                        "<td>" + leimaus[index].Sisään + "</td>" +
-                        "<td>" + leimaus[index].Ulos + "</td>" +
-                        "</tr>\r\n";
-                }
-                $("#leimausList tbody").html(html); 
-                
-                // tietojen muokkaus-lisätty
-                $("UlosButton").click(function () {
-                    //etsitään asiakkglyphicon-pencilaan tiedot klikatulta riviltä
-                    var opiskelijaid = $(this).parent().parent().next().text();
-
-                    //alert(Henkiloid);
-
-                    // haetaan asiakkaan tiedot id:n perusteella
-                    $.getJSON("/leimaus/getsingleleimaus/" + opiskelijaid, null, function (json2) {
-                        var leimaus = JSON.parse(json2);
-
-                        // kopioidaan tiedot ikkunaan
-                        $("#leiModal_Oid").val(leimaus.Tunnitid);
-                        $("#leiModal_Lid").val(leimaus.Projektiid);
-                        $("#proModal_Sisaan").val(leimaus.Henkiloid);
-                        $("#proModal_Ulos").val(leimaus.Pvm);
+                    var html = "";
+                    for (var index = 0; index < leimaus.length; index++) {
+                        html += "<tr>" +
 
 
-                        // näytetään ikkuna
-                        $("#tunnModalTitle").text("Muokkaa tietoja");
-                        $("#tunnModalDialog").modal("show");
+                            "<td>" + leimaus[index].Sisään + "</td>" +
+                            "<td>" + leimaus[index].Ulos + "</td>" +
+                            "</tr>\r\n";
+                    }
+                    $("#leimausList tbody").html(html);
+
+                    // tietojen muokkaus-lisätty
+                    $("UlosButton").click(function () {
+                        //etsitään asiakkglyphicon-pencilaan tiedot klikatulta riviltä
+                        var leimausid = $(this).parent().parent().next().text();
+
+                        //alert(Henkiloid);
+
+                        // haetaan asiakkaan tiedot id:n perusteella
+                        $.getJSON("/leimaus/getsingleleimaus/" + leimausid, null, function (json2) {
+                            var leimaus = JSON.parse(json2);
+
+                            // kopioidaan tiedot ikkunaan
+                            $("#leiModal_Oid").val(leimaus.Tunnitid);
+                            $("#leiModal_Lid").val(leimaus.Projektiid);
+                            $("#proModal_Sisaan").val(leimaus.Henkiloid);
+                            $("#proModal_Ulos").val(leimaus.Pvm);
+
+
+                            // näytetään ikkuna
+                            $("#tunnModalTitle").text("Muokkaa tietoja");
+                            $("#tunnModalDialog").modal("show");
+                        });
                     });
-                });
                     //tästä lisätty
-            });
-          }
+                });
+            }
 
-        $(function () {
-            päivitäAsiakaslistaus();
-
-            $("#ulosTunnilta").click(function () {
-
-                // tyhjennetään ikkunan tiedot
-                $("#leiModal_Oid").val("");
-                $("#leiModal_Lid").val("");
-                $("#leiModal_Sid").val("");
-                $("#tleiModal_Uid").val("");
-
-                // näytetään ikkuna
-                $("#tunnModalTitle").text("Muokkaa tietoja");
-                $("#tunnModalDialog").modal("show");
-            });
-        });
-        
 
             // sivun alustaminen
             $(function () {
                 päivitäAsiakaslistaus();
+
+                $("#ulosTunnilta").click(function () {
+
+                    // tyhjennetään ikkunan tiedot
+                    $("#leiModal_Oid").val("");
+                    $("#leiModal_Lid").val("");
+                    $("#leiModal_Sid").val("");
+                    $("#tleiModal_Uid").val("");
+
+                    // näytetään ikkuna
+                    $("#tunnModalTitle").text("Muokkaa tietoja");
+                    $("#tunnModalDialog").modal("show");
+                });
+
                 $("#SaveButton").click(function () {
                     // luetaan käyttäjän syöttämät kentät
                     var details = {
@@ -168,64 +185,60 @@
                     });
                 });
 
-            console.log("Alustus valmis!");
+                console.log("Alustus valmis!");
 
-        });
-                    
-    </script>
+            });
+
+        </script>
 
     }
 
     <div class="w3-content" style="max-width:1400px">
+        <div class="w3-container bgimg">
 
-        <!-- Header -->
-        <header class="w3-container w3-center w3-padding-32" style="margin:10px">
-            <h1><b>TuntiLeimaus</b></h1>
-            <p class="w3-text-grey">Tervetuloa Point Collegen </p> <p> <span class="w3-tag w3-text-white" style="background-color:rgb(0,0,0);">Tuntileimaukseen</span></p>
-        </header>
-        <!-- Grid -->
+            <!-- Header -->
+            <header class="w3-container w3-content w3-padding-32 text-center">
+                <h1><b>TuntiLeimaus</b></h1>
+                <p>Oppimisen uusi ulottuvuus</p> <p> <span class="w3-tag w3-text-white" style="background-color:rgb(0,0,0);">Tuntileimaukseen</span></p>
+            </header>
+            <!-- Grid -->
 
-        <div class="w3-row w3-content">
-            <!-- Sites -->
-            <div>
-                <div class="container">
-                    <form class="">
-                        <div class="form-group">
-                            <label for="Opiskelijanumero">Opiskelijanumero:</label>
-                            <input type="text" class="form-control" id="leiModal_Oid" placeholder="Anna opiskelijanumero">
-                        </div>
-                        <div class="form-group">
-                            <label for="Luokkanumero">Luokkanumero:</label>
-                            <input type="text" class="form-control" id="leiModal_Lid" placeholder="Anna luokkahuoneen numero">
-                        </div>
-                        <div>
-                            <button type="button" class="w3-circle" id="SaveButton">+</button>
+            <div class="w3-row w3-content" style="margin-top:40px;">
+                <!-- Sites -->
+                <div>
+                    <div class="container">
+                        <form class="">
+                            <div class="form-group">
+                                <label class="p" for="Opiskelijanumero" style="color:white;">Opiskelijanumero:</label>
+                                <input type="text" class="form-control" id="leiModal_Oid" placeholder="Anna opiskelijanumero">
+                            </div>
+                            <div class="form-group">
+                                <label class="p" for="Luokkanumero" style="color:white; margin-top:30px;">Luokkanumero:</label>
+                                <input type="text" class="form-control" id="leiModal_Lid" placeholder="Anna luokkahuoneen numero">
+                            </div>
+                            <div class="col-sm-6" style="margin-bottom:200px;">
+                                <button type="button" class="button" id="SaveButton">Sisään</button>
+                                <button type="button" class="button2" id="UlosButton">Ulos</button>
 
-                            <p id="demo"></p>
-                            <p id="demo1"></p>
-                        </div>
-                        <div>
-                            <button type="button" class="button" id="UlosButton">Submit</button>
-                            <p id="time"></p>
-                            <p id="day"></p>
-                        </div>
-                    </form>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div> <!-- END GRID -->
-        <!-- END TuntiLeimaus ENTRIES -->
-        <!-- Introduction menu -->
+
+                @*<div class="w3-twothird w3-card">
+                    <div class="w3-container w3-card w3-white w3-margin-bottom" style="margin-left:30px">
+                        <table class="table table-bordered" id="leimausList" style=" background-color:white">
+                            <thead style="background-color:white">
+                                <tr style="background-color:white">
+                                    <th style="margin-left:10px">sisään</th>
+                                    <th>ulos</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>*@
+                </div>
+        </div>
     </div>
-    <!-- END GRID -->
-    <table class="table table-striped" id="leimausList">
-        <thead>
-            <tr>
-                <th>Opiskelija</th>
-                <th>Luokka</th>
-                <th>Sisään</th>
-                <th>Ulos</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
 </body>

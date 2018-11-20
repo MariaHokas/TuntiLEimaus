@@ -29,6 +29,7 @@ namespace TuntiLeimausMVC.Models
         public virtual DbSet<Luokkahuone> Luokkahuone { get; set; }
         public virtual DbSet<Opettajat> Opettajat { get; set; }
         public virtual DbSet<Opiskelijat> Opiskelijat { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tuntiraportti> Tuntiraportti { get; set; }
     }
 }

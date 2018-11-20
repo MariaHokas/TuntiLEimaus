@@ -12,10 +12,12 @@
     <style>
         body, html {
             background-image: url("../../Images/Careeria logo[185].jpg");
+            background-color:white;
             background-repeat: no-repeat;
             background-position: left top;
             background-size: 200px;
-            margin: 10px;         
+            margin: 20px;
+          
         }
 
         h1
@@ -31,7 +33,7 @@
 
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed w3-margin-top">
+    <div class="navbar navbar-inverse navbar-fixed text-center" style="margin-bottom: 0px; padding: 20px; margin-top: 20px;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -60,18 +62,21 @@
             </div>
         </div>
     </div>
-    <div class="w3-container-fluid body-content">
-        @RenderBody()
-        <footer class="w3-container w3-black w3-center" style="margin-top:100px;">
-            <p class="w3-margin-top">Find us on Social Media</p>
-            <a href="https://www.facebook.com/PointCollege1/" class="fa fa-facebook-official fa-2x"></a>
+
+    @RenderBody()
+
+    @*<footer class="footer">
+
+        <div class="container">
+            <p class="w3-margin-top">find us on social media</p>
+            <a href="https://www.facebook.com/pointcollege1/" class="fa fa-facebook-official fa-2x"></a>
             <a href="https://www.instagram.com/pointcollegeporvoo/" class="fa fa-instagram fa-2x"></a>
             <a href="https://www.linkedin.com/in/maria-ahokas/" class="fa fa-pinterest-p fa-2x"></a>
-            <a href="https://twitter.com/Pointcollege" class="fa fa-twitter fa-2x"></a>
+            <a href="https://twitter.com/pointcollege" class="fa fa-twitter fa-2x"></a>
             <a href="https://www.linkedin.com/company/porvoo-international-college-oy/" class="fa fa-linkedin fa-2x"></a>
-            <p class="w3-margin-top">&copy; @DateTime.Now.Year - TuntiLeimaus</p>
-        </footer>
-    </div>
+            <p class="w3-margin-top"></p>
+        </div> 
+    </footer>*@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

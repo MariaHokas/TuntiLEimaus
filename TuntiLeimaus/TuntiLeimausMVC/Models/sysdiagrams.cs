@@ -12,15 +12,12 @@ namespace TuntiLeimausMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Leimaus
+    public partial class sysdiagrams
     {
-        public int LeimausID { get; set; }
-        public Nullable<int> OpiskelijaID { get; set; }
-        public Nullable<int> LuokkahuoneID { get; set; }
-        public Nullable<System.DateTime> Sisään { get; set; }
-        public Nullable<System.DateTime> Ulos { get; set; }
-    
-        public virtual Luokkahuone Luokkahuone { get; set; }
-        public virtual Opiskelijat Opiskelijat { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

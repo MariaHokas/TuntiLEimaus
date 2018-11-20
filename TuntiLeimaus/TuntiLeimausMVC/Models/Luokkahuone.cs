@@ -21,8 +21,7 @@ namespace TuntiLeimausMVC.Models
         }
     
         public int LuokkahuoneID { get; set; }
-        public string Etunimi { get; set; }
-        public string Sukunimi { get; set; }
+        public string Luokkahuone1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Leimaus> Leimaus { get; set; }

@@ -14,8 +14,17 @@ namespace TuntiLeimausMVC.Models
     
     public partial class Opiskelijat
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Opiskelijat()
+        {
+            this.Leimaus = new HashSet<Leimaus>();
+        }
+    
         public int OpiskelijaID { get; set; }
         public string Etunimi { get; set; }
         public string Sukunimi { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Leimaus> Leimaus { get; set; }
     }
 }
