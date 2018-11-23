@@ -163,9 +163,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Leimaus.cs">
-      <DependentUpon>TuntileimausModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Luokkahuone.cs">
       <DependentUpon>TuntileimausModel.tt</DependentUpon>
     </Compile>
@@ -209,7 +206,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\Careeria logo[185].jpg" />
     <Content Include="Images\etusivu_taustakuva.png" />
-    <Content Include="Images\Koulu.PNG" />
+    <Content Include="Images\opettaja_taustakuva.png" />
     <Content Include="Models\TuntileimausModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TuntileimausModel.edmx</DependentUpon>

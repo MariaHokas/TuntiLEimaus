@@ -14,7 +14,8 @@ namespace TuntiLeimausMVC.Models
     
     public partial class Tuntiraportti
     {
-        public int OpiskelijaID { get; set; }
+        public int LeimausID { get; set; }
+        public Nullable<int> OpiskelijaID { get; set; }
         public string Etunimi { get; set; }
         public string Sukunimi { get; set; }
         public Nullable<int> LuokkahuoneID { get; set; }

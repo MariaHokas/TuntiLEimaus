@@ -22,7 +22,7 @@ namespace TuntiLeimausMVC.Controllers
             //Tämä malli antaa enemmän mahdollisuuksia
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
 
-            var model = (from p in entities.Leimaus
+            var model = (from p in entities.Tuntiraportti
                          select new
                          {
                          p.LeimausID,
@@ -47,7 +47,7 @@ namespace TuntiLeimausMVC.Controllers
             //Tämä malli antaa enemmän mahdollisuuksia
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
             //List<Customer> model = entities.Customers.ToList();
-            var model = (from p in entities.Leimaus
+            var model = (from p in entities.Tuntiraportti
                          where p.LeimausID == id
                          select new
                          {
@@ -63,7 +63,7 @@ namespace TuntiLeimausMVC.Controllers
 
             return Json(json, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Update(Leimaus pro)
+        public ActionResult Update(Tuntiraportti pro)
         {
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
             int id = pro.LeimausID;
@@ -75,7 +75,7 @@ namespace TuntiLeimausMVC.Controllers
             {
 
                 // kyseessä on uuden asiakkaan lisääminen, kopioidaan kentät
-                Leimaus dbItem = new Leimaus()
+                Tuntiraportti dbItem = new Tuntiraportti()
                 {
                     LeimausID = pro.LeimausID,
                     OpiskelijaID = pro.OpiskelijaID,
@@ -86,7 +86,7 @@ namespace TuntiLeimausMVC.Controllers
                 };
 
                 // tallennus tietokantaan
-                entities.Leimaus.Add(dbItem);
+                entities.Tuntiraportti.Add(dbItem);
                 entities.SaveChanges();
                 OK = true;
             }
@@ -95,8 +95,8 @@ namespace TuntiLeimausMVC.Controllers
             {
                 // muokkaus, haetaan id:n perusteella riviä tietokannasta
 
-                Leimaus dbItem = (from t in entities.Leimaus
-                                  where t.LeimausID == id
+                Tuntiraportti dbItem = (from t in entities.Tuntiraportti
+                                        where t.LeimausID == id
                                   select t).FirstOrDefault();
 
                 if (dbItem != null)

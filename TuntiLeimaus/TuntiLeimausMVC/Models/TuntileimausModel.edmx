@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TuntiLeimausModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Leimaus">
-          <Key>
-            <PropertyRef Name="LeimausID" />
-          </Key>
-          <Property Name="LeimausID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OpiskelijaID" Type="int" />
-          <Property Name="LuokkahuoneID" Type="int" />
-          <Property Name="Sisään" Type="datetime" />
-          <Property Name="Ulos" Type="datetime" />
-        </EntityType>
         <EntityType Name="Luokkahuone">
           <Key>
             <PropertyRef Name="LuokkahuoneID" />
@@ -27,16 +17,16 @@
             <PropertyRef Name="OpettajaID" />
           </Key>
           <Property Name="OpettajaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Etunimi" Type="varchar" MaxLength="50" />
-          <Property Name="Sukunimi" Type="varchar" MaxLength="50" />
+          <Property Name="Etunimi" Type="nchar" MaxLength="50" />
+          <Property Name="Sukunimi" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Opiskelijat">
           <Key>
             <PropertyRef Name="OpiskelijaID" />
           </Key>
           <Property Name="OpiskelijaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Etunimi" Type="varchar" MaxLength="50" />
-          <Property Name="Sukunimi" Type="varchar" MaxLength="50" />
+          <Property Name="Etunimi" Type="nchar" MaxLength="50" />
+          <Property Name="Sukunimi" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -50,111 +40,56 @@
         </EntityType>
         <EntityType Name="Tuntiraportti">
           <Key>
-            <PropertyRef Name="OpiskelijaID" />
+            <PropertyRef Name="LeimausID" />
           </Key>
-          <Property Name="OpiskelijaID" Type="int" Nullable="false" />
-          <Property Name="Etunimi" Type="varchar" MaxLength="50" />
-          <Property Name="Sukunimi" Type="varchar" MaxLength="50" />
+          <Property Name="LeimausID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OpiskelijaID" Type="int" />
+          <Property Name="Etunimi" Type="nchar" MaxLength="50" />
+          <Property Name="Sukunimi" Type="nchar" MaxLength="50" />
           <Property Name="LuokkahuoneID" Type="int" />
           <Property Name="Sisään" Type="datetime" />
           <Property Name="Ulos" Type="datetime" />
         </EntityType>
-        <Association Name="FK_Leimaus_Luokka">
-          <End Role="Luokkahuone" Type="Self.Luokkahuone" Multiplicity="0..1" />
-          <End Role="Leimaus" Type="Self.Leimaus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Luokkahuone">
-              <PropertyRef Name="LuokkahuoneID" />
-            </Principal>
-            <Dependent Role="Leimaus">
-              <PropertyRef Name="LuokkahuoneID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Leimaus_Opiskelija">
-          <End Role="Opiskelijat" Type="Self.Opiskelijat" Multiplicity="0..1" />
-          <End Role="Leimaus" Type="Self.Leimaus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Opiskelijat">
-              <PropertyRef Name="OpiskelijaID" />
-            </Principal>
-            <Dependent Role="Leimaus">
-              <PropertyRef Name="OpiskelijaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="TuntiLeimausModelStoreContainer">
-          <EntitySet Name="Leimaus" EntityType="Self.Leimaus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Luokkahuone" EntityType="Self.Luokkahuone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Opettajat" EntityType="Self.Opettajat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Opiskelijat" EntityType="Self.Opiskelijat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tuntiraportti" EntityType="Self.Tuntiraportti" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Leimaus_Luokka" Association="Self.FK_Leimaus_Luokka">
-            <End Role="Luokkahuone" EntitySet="Luokkahuone" />
-            <End Role="Leimaus" EntitySet="Leimaus" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Leimaus_Opiskelija" Association="Self.FK_Leimaus_Opiskelija">
-            <End Role="Opiskelijat" EntitySet="Opiskelijat" />
-            <End Role="Leimaus" EntitySet="Leimaus" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TuntiLeimausModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="TuntiLeimausEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Leimaus" EntityType="TuntiLeimausModel.Leimaus" />
           <EntitySet Name="Luokkahuone" EntityType="TuntiLeimausModel.Luokkahuone" />
           <EntitySet Name="Opettajat" EntityType="TuntiLeimausModel.Opettajat" />
           <EntitySet Name="Opiskelijat" EntityType="TuntiLeimausModel.Opiskelijat" />
           <EntitySet Name="sysdiagrams" EntityType="TuntiLeimausModel.sysdiagrams" />
           <EntitySet Name="Tuntiraportti" EntityType="TuntiLeimausModel.Tuntiraportti" />
-          <AssociationSet Name="FK_Leimaus_Luokka" Association="TuntiLeimausModel.FK_Leimaus_Luokka">
-            <End Role="Luokkahuone" EntitySet="Luokkahuone" />
-            <End Role="Leimaus" EntitySet="Leimaus" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Leimaus_Opiskelija" Association="TuntiLeimausModel.FK_Leimaus_Opiskelija">
-            <End Role="Opiskelijat" EntitySet="Opiskelijat" />
-            <End Role="Leimaus" EntitySet="Leimaus" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Leimaus">
-          <Key>
-            <PropertyRef Name="LeimausID" />
-          </Key>
-          <Property Name="LeimausID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OpiskelijaID" Type="Int32" />
-          <Property Name="LuokkahuoneID" Type="Int32" />
-          <Property Name="Sisään" Type="DateTime" Precision="3" />
-          <Property Name="Ulos" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Luokkahuone" Relationship="TuntiLeimausModel.FK_Leimaus_Luokka" FromRole="Leimaus" ToRole="Luokkahuone" />
-          <NavigationProperty Name="Opiskelijat" Relationship="TuntiLeimausModel.FK_Leimaus_Opiskelija" FromRole="Leimaus" ToRole="Opiskelijat" />
-        </EntityType>
         <EntityType Name="Luokkahuone">
           <Key>
             <PropertyRef Name="LuokkahuoneID" />
           </Key>
           <Property Name="LuokkahuoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Luokkahuone1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Leimaus" Relationship="TuntiLeimausModel.FK_Leimaus_Luokka" FromRole="Luokkahuone" ToRole="Leimaus" />
         </EntityType>
         <EntityType Name="Opettajat">
           <Key>
             <PropertyRef Name="OpettajaID" />
           </Key>
           <Property Name="OpettajaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Opiskelijat">
           <Key>
             <PropertyRef Name="OpiskelijaID" />
           </Key>
           <Property Name="OpiskelijaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Leimaus" Relationship="TuntiLeimausModel.FK_Leimaus_Opiskelija" FromRole="Opiskelijat" ToRole="Leimaus" />
+          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -168,56 +103,22 @@
         </EntityType>
         <EntityType Name="Tuntiraportti">
           <Key>
-            <PropertyRef Name="OpiskelijaID" />
+            <PropertyRef Name="LeimausID" />
           </Key>
-          <Property Name="OpiskelijaID" Type="Int32" Nullable="false" />
-          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LeimausID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OpiskelijaID" Type="Int32" />
+          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="LuokkahuoneID" Type="Int32" />
           <Property Name="Sisään" Type="DateTime" Precision="3" />
           <Property Name="Ulos" Type="DateTime" Precision="3" />
         </EntityType>
-        <Association Name="FK_Leimaus_Luokka">
-          <End Type="TuntiLeimausModel.Luokkahuone" Role="Luokkahuone" Multiplicity="0..1" />
-          <End Type="TuntiLeimausModel.Leimaus" Role="Leimaus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Luokkahuone">
-              <PropertyRef Name="LuokkahuoneID" />
-            </Principal>
-            <Dependent Role="Leimaus">
-              <PropertyRef Name="LuokkahuoneID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Leimaus_Opiskelija">
-          <End Type="TuntiLeimausModel.Opiskelijat" Role="Opiskelijat" Multiplicity="0..1" />
-          <End Type="TuntiLeimausModel.Leimaus" Role="Leimaus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Opiskelijat">
-              <PropertyRef Name="OpiskelijaID" />
-            </Principal>
-            <Dependent Role="Leimaus">
-              <PropertyRef Name="OpiskelijaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TuntiLeimausModelStoreContainer" CdmEntityContainer="TuntiLeimausEntities">
-          <EntitySetMapping Name="Leimaus">
-            <EntityTypeMapping TypeName="TuntiLeimausModel.Leimaus">
-              <MappingFragment StoreEntitySet="Leimaus">
-                <ScalarProperty Name="Ulos" ColumnName="Ulos" />
-                <ScalarProperty Name="Sisään" ColumnName="Sisään" />
-                <ScalarProperty Name="LuokkahuoneID" ColumnName="LuokkahuoneID" />
-                <ScalarProperty Name="OpiskelijaID" ColumnName="OpiskelijaID" />
-                <ScalarProperty Name="LeimausID" ColumnName="LeimausID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Luokkahuone">
             <EntityTypeMapping TypeName="TuntiLeimausModel.Luokkahuone">
               <MappingFragment StoreEntitySet="Luokkahuone">
@@ -264,6 +165,7 @@
                 <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
                 <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
                 <ScalarProperty Name="OpiskelijaID" ColumnName="OpiskelijaID" />
+                <ScalarProperty Name="LeimausID" ColumnName="LeimausID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

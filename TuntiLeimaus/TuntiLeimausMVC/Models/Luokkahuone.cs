@@ -14,16 +14,7 @@ namespace TuntiLeimausMVC.Models
     
     public partial class Luokkahuone
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Luokkahuone()
-        {
-            this.Leimaus = new HashSet<Leimaus>();
-        }
-    
         public int LuokkahuoneID { get; set; }
         public string Luokkahuone1 { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Leimaus> Leimaus { get; set; }
     }
 }
