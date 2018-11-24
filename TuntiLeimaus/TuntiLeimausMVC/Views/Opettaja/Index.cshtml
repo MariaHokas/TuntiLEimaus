@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h1>Päivitä opiskelijan tuntiraporttia</h1>
+<h1 class="w3-center">Päivitä opiskelijan tuntiraporttia</h1>
 
 <head>
     <title>Leimaus</title>
@@ -38,7 +38,7 @@
             for (var index = 0; index < tuntiraportti.length; index++) {
                 html += "<tr>" +
                     "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
-                    "<td>" + tuntiraportti[index].leimausID + "</td>" +
+                    "<td>" + tuntiraportti[index].LeimausID + "</td>" +
                     "<td>" + tuntiraportti[index].OpiskelijaID + "</td>" +
                     "<td>" + tuntiraportti[index].Etunimi + "</td>" +
                     "<td>" + tuntiraportti[index].Sukunimi + "</td>" +
@@ -56,27 +56,28 @@
             // tietojen muokkaus
             $(".glyphicon-pencil").click(function () {
                 // etsitään asiakkaan tiedot klikatulta riviltä
-                var leimausID = $(this).parent().parent().next().text();
+                var LeimausID = $(this).parent().parent().next().text();
                 //alert(opiskelijaID);
 
                 // haetaan opiskelijan tiedot id:n perusteella //"/opiskelijaid/getsingleopiskelijaid/" korvattu "/opettaja/getsingleopiskelijaid/"
-                $.getJSON("/opettaja/getsingleopiskelijaid/" + leimausID, null, function (json2) {
-                    var leimausID = JSON.parse(json2);
-
+                $.getJSON("/opettaja/GetSingleTuntiraportti/" + LeimausID, null, function (json2) {
+                    var LeimausID = JSON.parse(json2);
+                    
                     // kopioidaan tiedot ikkunaan
-                    $("#opiskelijaidModal_LeimausID").val(leimausID.LeimausID);
-                    $("#opiskelijaidModal_OpiskelijaID").val(leimausID.OpiskelijaID);
-                    $("#opiskelijaidModal_Etunimi").val(leimausID.Etunimi);
-                    $("#opiskelijaidModal_Sukunimi").val(leimausID.Sukunimi);
-                    $("#opiskelijaidModal_LuokkahuoneID").val(oleimausID.LuokkahuoneID);
-                    $("#opiskelijaidModal_Sisään").val(leimausID.Sisään);
-                    $("#opiskelijaidModal_Ulos").val(leimausID.Ulos);
+                    $("#opiskelijaidModal_LeimausID").val(LeimausID.LeimausID);
+                    $("#opiskelijaidModal_OpiskelijaID").val(LeimausID.OpiskelijaID);
+                    $("#opiskelijaidModal_Etunimi").val(LeimausID.Etunimi);
+                    $("#opiskelijaidModal_Sukunimi").val(LeimausID.Sukunimi);
+                    $("#opiskelijaidModal_LuokkahuoneID").val(LeimausID.LuokkahuoneID);
+                    $("#opiskelijaidModal_Sisään").val(LeimausID.Sisään);
+                    $("#opiskelijaidModal_Ulos").val(LeimausID.Ulos);
 
                     // näytetään ikkuna
                     $("#opiskelijaidModalTitle").text("Muokkaa opiskelijaa");
                     $("#opiskelijaidModalDialog").modal("show");
                 });
             });
+
             $(".glyphicon-trash").click(function () {
                 // etsitään asiakkaan tiedot klikatulta riviltä
                 console.log("Poistoa klikattu");
@@ -87,7 +88,7 @@
                     $.getJSON("/Opettaja/delete/" + LeimausID, null, function (status) {
                         if (status == true) {
                             alert("Tieto on poistettu!");
-                            päivitäAsiakaslistaus();
+                            päivitäTuntiraportti();
                         }
                         else {
                             alert("Poistaminen ei onnistunut, yritä uudelleen!");
@@ -99,12 +100,12 @@
     }
       //päivitäOpiskelijaIDlistaus();
     $(function () {
-        //päivitäTuntiraportti();
+        päivitäTuntiraportti();
         $("#lisaaUusiTuntiButton").click(function () {
 
             // Tyhjennetään ikkunan tiedot
-            $("#opiskelijaidModal_LeimausID").val;
-            $("#opiskelijaidModal_OpiskelijaID").val(""); //("Uusi ID")
+            $("#opiskelijaidModal_LeimausID").val("");
+            $("#opiskelijaidModal_OpiskelijaID").val(""); 
             $("#opiskelijaidModal_Etunimi").val("");
             $("#opiskelijaidModal_Sukunimi").val("");
             $("#opiskelijaidModal_LuokkahuoneID").val("");
@@ -113,8 +114,8 @@
 
             $("#opiskelijaidModalTitle").text("Lisää uudet tunnit opiskelijalle");
             $("#opiskelijaidModalDialog").modal("show");
-
-            console.log("Alustus valmis!87");
+        });
+            //console.log("Alustus valmis!87");
 
             $("#opiskelijaidModalSaveButton").click(function () {
                 // luetaan käyttäjän syöttämät kentät
@@ -143,7 +144,7 @@
                 });
 
             });
-        });
+        
         päivitäTuntiraportti();
         console.log("Alustus valmis!114");
 

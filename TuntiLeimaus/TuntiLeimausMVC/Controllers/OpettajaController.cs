@@ -101,7 +101,7 @@ namespace TuntiLeimausMVC.Controllers
             {
                 //haetaan id:n perusteella rivi SQL tietokannasta       //h. muutettu c.
                 Tuntiraportti dbItem = (from h in entities.Tuntiraportti
-                                        where h.OpiskelijaID == tunt.OpiskelijaID
+                                        where h.LeimausID == tunt.LeimausID
                                         select h).FirstOrDefault(); //haetaan vain yhden henkilön tiedot
 
                 //jos tiedot löytyvät eli ei ole null
