@@ -25,7 +25,6 @@ namespace TuntiLeimausMVC.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Leimaus> Leimaus { get; set; }
         public virtual DbSet<Luokkahuone> Luokkahuone { get; set; }
         public virtual DbSet<Opettajat> Opettajat { get; set; }
         public virtual DbSet<Opiskelijat> Opiskelijat { get; set; }

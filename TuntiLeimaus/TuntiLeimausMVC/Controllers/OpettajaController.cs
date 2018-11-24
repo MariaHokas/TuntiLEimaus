@@ -72,7 +72,7 @@ namespace TuntiLeimausMVC.Controllers
         {
 
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
-            int id = tunt.OpiskelijaID;
+            int id = tunt.LeimausID;
 
             //oletetaan että tallennusoperaatio ei onnistu
             bool OK = false;
@@ -80,7 +80,7 @@ namespace TuntiLeimausMVC.Controllers
             // onko kyseessä muokkaus vai uuden lisääminen?
             //if (id.ToString() == null)
             //if (tunt.OpiskelijaID == 0)
-            if (id == 0)
+            if (tunt.OpiskelijaID == 0)
             {
                 // kyseessä on uuden asiakkaan lisääminen, kopioidaan kentät
                 Tuntiraportti dbItem = new Tuntiraportti()

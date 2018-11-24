@@ -14,6 +14,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+
+    .abcimage {
+        background-image: url("../../Images/opettaja_taustakuva.png");
+        min-height: 100%;
+        /*background-position: center;*/
+        background-size: cover;
+    }
+
+</style>
 </head>
 
 @section scripts {
@@ -121,62 +131,70 @@
     </script>
 }
 
-<Button class="btn btn-default" id="lisaaUusiTuntiButton">Muokkaa opiskelijan tuntiraporttia</Button>
+    <div class="w3-content" style="max-width:1400px">
+        <div class="w3-container abcimage">
 
-<table class="table table-striped" id="opiskelijaidList">
-    <thead>
-        <tr>
-            <th></th>
-            <th>OpiskelijaID</th>
-            <th>Etunimi</th>
-            <th>Sukunimi</th>
-            <th>LuokkahuoneID</th>
-            <th>Sisään</th>
-            <th>Ulos</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody></tbody>
+            <Button class="btn btn-default" id="lisaaUusiTuntiButton">Muokkaa opiskelijan tuntiraporttia</Button>
 
-</table>
+            <div style="background-color:white">
 
-<div class="modal fade" tabindex="-1" role="dialog" id="opiskelijaidModalDialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><span id="opiskelijaidModalTitle">Muokkaa opiskelijaa</span></h4>
+                <table class="table table-striped" id="opiskelijaidList">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>OpiskelijaID</th>
+                            <th>Etunimi</th>
+                            <th>Sukunimi</th>
+                            <th>LuokkahuoneID</th>
+                            <th>Sisään</th>
+                            <th>Ulos</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+
+                <div class="modal fade" tabindex="-1" role="dialog" id="opiskelijaidModalDialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><span id="opiskelijaidModalTitle">Muokkaa opiskelijaa</span></h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-3">Opiskelijan ID</div>
+                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_OpiskelijaID" type="text" readonly></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">Etunimi</div>
+                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Etunimi" type="text"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">Sukunimi</div>
+                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sukunimi" type="text"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">LuokkahuoneID</div>
+                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_LuokkahuoneID" type="text"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">Sisään</div>
+                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sisään" type="text"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">Ulos</div>
+                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Ulos" type="text"></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                                <button type="button" class="btn btn-primary" id="opiskelijaidModalSaveButton">Tallenna</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-3">Opiskelijan ID</div>
-                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_OpiskelijaID" type="text" readonly></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Etunimi</div>
-                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Etunimi" type="text"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Sukunimi</div>
-                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sukunimi" type="text"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">LuokkahuoneID</div>
-                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_LuokkahuoneID" type="text"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Sisään</div>
-                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sisään" type="text"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Ulos</div>
-                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Ulos" type="text"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
-                <button type="button" class="btn btn-primary" id="opiskelijaidModalSaveButton">Tallenna</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+    </div>
