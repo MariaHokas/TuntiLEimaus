@@ -13,12 +13,8 @@ namespace TuntiLeimausMVC.Controllers
         // GET: Opettaja
         public ActionResult Index()
         {
-            
-            TuntiLeimausEntities entities = new TuntiLeimausEntities();
-            List<Tuntiraportti> model = entities.Tuntiraportti.ToList();
-            entities.Dispose();
 
-            return View(model);
+            return View();
         }
 
         public JsonResult GetList()
@@ -29,12 +25,13 @@ namespace TuntiLeimausMVC.Controllers
             var model = (from c in entities.Tuntiraportti
                          select new
                          {
-                             OpiskelijaID = c.OpiskelijaID,
-                             Etunimi = c.Etunimi,
-                             Sukunimi = c.Sukunimi,
-                             LuokkahuoneID = c.LuokkahuoneID,
-                             Sisään = c.Sisään,
-                             Ulos = c.Ulos
+                             c.LeimausID,
+                             c.OpiskelijaID,
+                             c.Etunimi,
+                             c.Sukunimi,
+                             c.LuokkahuoneID,
+                             c.Sisään,
+                             c.Ulos
                          }).ToList();
 
             string json = JsonConvert.SerializeObject(model);
@@ -49,17 +46,18 @@ namespace TuntiLeimausMVC.Controllers
         public JsonResult GetSingleTuntiraportti(string id)
         {
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
-            int opiskelijaid = int.Parse(id);
+            int LeimausID = int.Parse(id);
             var model = (from c in entities.Tuntiraportti
-                         where c.OpiskelijaID == opiskelijaid
+                         where c.LeimausID == LeimausID
                          select new
                          {
-                             OpiskelijaID = c.OpiskelijaID,
-                             Etunimi = c.Etunimi,
-                             Sukunimi = c.Sukunimi,
-                             LuokkahuoneID = c.LuokkahuoneID,
-                             Sisään = c.Sisään,
-                             Ulos = c.Ulos
+                             c.LeimausID,
+                             c.OpiskelijaID,
+                             c.Etunimi,
+                             c.Sukunimi,
+                             c.LuokkahuoneID,
+                             c.Sisään,
+                             c.Ulos
                          }).FirstOrDefault();
 
             string json = JsonConvert.SerializeObject(model);
@@ -80,12 +78,13 @@ namespace TuntiLeimausMVC.Controllers
             // onko kyseessä muokkaus vai uuden lisääminen?
             //if (id.ToString() == null)
             //if (tunt.OpiskelijaID == 0)
-            if (tunt.OpiskelijaID == 0)
+            if (tunt.LeimausID == 0)
             {
                 // kyseessä on uuden asiakkaan lisääminen, kopioidaan kentät
                 Tuntiraportti dbItem = new Tuntiraportti()
                 {
                     //HenkiloID = henk.HenkiloID,
+                    OpiskelijaID = tunt.OpiskelijaID,
                     Etunimi = tunt.Etunimi,
                     Sukunimi = tunt.Sukunimi,
                     LuokkahuoneID = tunt.LuokkahuoneID,
@@ -109,6 +108,7 @@ namespace TuntiLeimausMVC.Controllers
                 if (dbItem != null)
                 {
                     //dbItem.HenkiloID = henk.HenkiloID;  //tätä ei käytetä
+                    dbItem.OpiskelijaID = tunt.OpiskelijaID;
                     dbItem.Etunimi = tunt.Etunimi;
                     dbItem.Sukunimi = tunt.Sukunimi;
                     dbItem.LuokkahuoneID = tunt.LuokkahuoneID;
@@ -134,11 +134,11 @@ namespace TuntiLeimausMVC.Controllers
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
 
             //etsitään id:n perusteella henkilöt kannasta
-            int opiskelijaid = int.Parse(id);
+            //int LeimausID = int.Parse(id);
             bool OK = false;
-            Tuntiraportti dbItem = (from h in entities.Tuntiraportti
-                                    where h.OpiskelijaID == opiskelijaid
-                                    select h).FirstOrDefault();
+            Tuntiraportti dbItem = (from c in entities.Tuntiraportti
+                               where c.LeimausID.ToString() == id
+                               select c).FirstOrDefault();
 
             if (dbItem != null)
             {
