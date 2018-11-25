@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h1 class="w3-center">Päivitä opiskelijan tuntiraporttia</h1>
+@*<h1 class="w3-center">Päivitä opiskelijan tuntiraporttia</h1>*@ @*/siirretty alas ettei jää rakoa headerin alle*@
 
 <head>
     <title>Leimaus</title>
@@ -14,107 +14,110 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
+    <style>
 
-    .abcimage {
-        background-image: url("../../Images/opettaja_taustakuva.png");
-        min-height: 100%;
-        /*background-position: center;*/
-        background-size: cover;
-        padding: 30px;
-    }
-
-</style>
+        .abcimage {
+            background-image: url("../../Images/opettaja_taustakuva.png");
+            /*min-height: 100%;*/
+            background-size: cover;
+            padding: 30px;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 
 @section scripts {
 
-<script type="text/javascript">
-    function päivitäTuntiraportti() { //"/opiskelijaid/getlist"
-        $.getJSON("/opettaja/getlist", null, function (json) {
-            var tuntiraportti = JSON.parse(json);
 
-            var html = "";
-            for (var index = 0; index < tuntiraportti.length; index++) {
-                html += "<tr>" +
-                    "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
-                    "<td>" + tuntiraportti[index].LeimausID + "</td>" +
-                    "<td>" + tuntiraportti[index].OpiskelijaID + "</td>" +
-                    "<td>" + tuntiraportti[index].Etunimi + "</td>" +
-                    "<td>" + tuntiraportti[index].Sukunimi + "</td>" +
-                    "<td>" + tuntiraportti[index].LuokkahuoneID + "</td>" +
-                    "<td>" + tuntiraportti[index].Sisään + "</td>" +
-                    "<td>" + tuntiraportti[index].Ulos + "</td>" +
-                    "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>" +
-                    "</tr>\r\n";
-                "</tr>\r\n"
-            }
+    <script type="text/javascript">
+        function päivitäTuntiraportti() { //"/opiskelijaid/getlist"
+            $.getJSON("/opettaja/getlist", null, function (json) {
+                var tuntiraportti = JSON.parse(json);
+
+                var html = "";
+                for (var index = 0; index < tuntiraportti.length; index++) {
+                    html += "<tr>" +
+                        "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
+                        "<td>" + tuntiraportti[index].LeimausID + "</td>" +
+                        "<td>" + tuntiraportti[index].OpiskelijaID + "</td>" +
+                        "<td>" + tuntiraportti[index].Etunimi + "</td>" +
+                        "<td>" + tuntiraportti[index].Sukunimi + "</td>" +
+                        "<td>" + tuntiraportti[index].LuokkahuoneID + "</td>" +
+                        "<td>" + tuntiraportti[index].Sisään + "</td>" +
+                        "<td>" + tuntiraportti[index].Ulos + "</td>" +
+                        "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>" +
+                        "</tr>\r\n";
+                    "</tr>\r\n"
+                }
 
 
-            $("#opiskelijaidList tbody").html(html);
+                $("#opiskelijaidList tbody").html(html);
 
-            // tietojen muokkaus
-            $(".glyphicon-pencil").click(function () {
-                // etsitään asiakkaan tiedot klikatulta riviltä
-                var LeimausID = $(this).parent().parent().next().text();
-                //alert(opiskelijaID);
+                // tietojen muokkaus
+                $(".glyphicon-pencil").click(function () {
+                    // etsitään asiakkaan tiedot klikatulta riviltä
+                    var LeimausID = $(this).parent().parent().next().text();
+                    //alert(opiskelijaID);
 
-                // haetaan opiskelijan tiedot id:n perusteella //"/opiskelijaid/getsingleopiskelijaid/" korvattu "/opettaja/getsingleopiskelijaid/"
-                $.getJSON("/opettaja/GetSingleTuntiraportti/" + LeimausID, null, function (json2) {
-                    var LeimausID = JSON.parse(json2);
-                    
-                    // kopioidaan tiedot ikkunaan
-                    $("#opiskelijaidModal_LeimausID").val(LeimausID.LeimausID);
-                    $("#opiskelijaidModal_OpiskelijaID").val(LeimausID.OpiskelijaID);
-                    $("#opiskelijaidModal_Etunimi").val(LeimausID.Etunimi);
-                    $("#opiskelijaidModal_Sukunimi").val(LeimausID.Sukunimi);
-                    $("#opiskelijaidModal_LuokkahuoneID").val(LeimausID.LuokkahuoneID);
-                    $("#opiskelijaidModal_Sisään").val(LeimausID.Sisään);
-                    $("#opiskelijaidModal_Ulos").val(LeimausID.Ulos);
+                    // haetaan opiskelijan tiedot id:n perusteella //"/opiskelijaid/getsingleopiskelijaid/" korvattu "/opettaja/getsingleopiskelijaid/"
+                    $.getJSON("/opettaja/GetSingleTuntiraportti/" + LeimausID, null, function (json2) {
+                        var LeimausID = JSON.parse(json2);
 
-                    // näytetään ikkuna
-                    $("#opiskelijaidModalTitle").text("Muokkaa opiskelijaa");
-                    $("#opiskelijaidModalDialog").modal("show");
+                        // kopioidaan tiedot ikkunaan
+                        $("#opiskelijaidModal_LeimausID").val(LeimausID.LeimausID);
+                        $("#opiskelijaidModal_OpiskelijaID").val(LeimausID.OpiskelijaID);
+                        $("#opiskelijaidModal_Etunimi").val(LeimausID.Etunimi);
+                        $("#opiskelijaidModal_Sukunimi").val(LeimausID.Sukunimi);
+                        $("#opiskelijaidModal_LuokkahuoneID").val(LeimausID.LuokkahuoneID);
+                        $("#opiskelijaidModal_Sisään").val(LeimausID.Sisään);
+                        $("#opiskelijaidModal_Ulos").val(LeimausID.Ulos);
+
+                        // näytetään ikkuna
+                        $("#opiskelijaidModalTitle").text("Muokkaa opiskelijaa");
+                        $("#opiskelijaidModalDialog").modal("show");
+                    });
+                });
+
+                $(".glyphicon-trash").click(function () {
+                    // etsitään asiakkaan tiedot klikatulta riviltä
+                    console.log("Poistoa klikattu");
+                    var LeimausID = $(this).parent().parent().prev().prev().prev().prev().prev().prev().prev().text();
+                    var ok = confirm("Haluatko varmasti poistaa tiedon " + LeimausID + "?");
+
+                    if (ok == true) {
+                        $.getJSON("/Opettaja/delete/" + LeimausID, null, function (status) {
+                            if (status == true) {
+                                alert("Tieto on poistettu!");
+                                päivitäTuntiraportti();
+                            }
+                            else {
+                                alert("Poistaminen ei onnistunut, yritä uudelleen!");
+                            }
+                        });
+                    }
                 });
             });
+        }
+        //päivitäOpiskelijaIDlistaus();
+        $(function () {
+            päivitäTuntiraportti();
+            $("#lisaaUusiTuntiButton").click(function () {
 
-            $(".glyphicon-trash").click(function () {
-                // etsitään asiakkaan tiedot klikatulta riviltä
-                console.log("Poistoa klikattu");
-                var LeimausID = $(this).parent().parent().prev().prev().prev().prev().prev().prev().prev().text();
-                var ok = confirm("Haluatko varmasti poistaa tiedon " + LeimausID + "?");
+                // Tyhjennetään ikkunan tiedot
+                $("#opiskelijaidModal_LeimausID").val("");
+                $("#opiskelijaidModal_OpiskelijaID").val("");
+                $("#opiskelijaidModal_Etunimi").val("");
+                $("#opiskelijaidModal_Sukunimi").val("");
+                $("#opiskelijaidModal_LuokkahuoneID").val("");
+                $("#opiskelijaidModal_Sisään").val("");
+                $("#opiskelijaidModal_Ulos").val("");
 
-                if (ok == true) {
-                    $.getJSON("/Opettaja/delete/" + LeimausID, null, function (status) {
-                        if (status == true) {
-                            alert("Tieto on poistettu!");
-                            päivitäTuntiraportti();
-                        }
-                        else {
-                            alert("Poistaminen ei onnistunut, yritä uudelleen!");
-                        }
-                    });
-                }
+                $("#opiskelijaidModalTitle").text("Lisää uudet tunnit opiskelijalle");
+                $("#opiskelijaidModalDialog").modal("show");
             });
-        });      
-    }
-      //päivitäOpiskelijaIDlistaus();
-    $(function () {
-        päivitäTuntiraportti();
-        $("#lisaaUusiTuntiButton").click(function () {
-
-            // Tyhjennetään ikkunan tiedot
-            $("#opiskelijaidModal_LeimausID").val("");
-            $("#opiskelijaidModal_OpiskelijaID").val(""); 
-            $("#opiskelijaidModal_Etunimi").val("");
-            $("#opiskelijaidModal_Sukunimi").val("");
-            $("#opiskelijaidModal_LuokkahuoneID").val("");
-            $("#opiskelijaidModal_Sisään").val("");
-            $("#opiskelijaidModal_Ulos").val("");
-
-            $("#opiskelijaidModalTitle").text("Lisää uudet tunnit opiskelijalle");
-            $("#opiskelijaidModalDialog").modal("show");
-        });
             //console.log("Alustus valmis!87");
 
             $("#opiskelijaidModalSaveButton").click(function () {
@@ -144,86 +147,88 @@
                 });
 
             });
-        
-        päivitäTuntiraportti();
-        console.log("Alustus valmis!114");
 
-    });
+            päivitäTuntiraportti();
+            console.log("Alustus valmis!114");
+
+        });
 
 
-</script>
-             
+    </script>
+
 }
 
-    <div class="w3-content" style="max-width:1400px">
-        <div class="w3-container abcimage">
+<div class="w3-content" style="max-width:1400px">
+    <div class="w3-container abcimage">
 
-            <Button class="btn btn-default" id="lisaaUusiTuntiButton" style="margin-bottom: 30px">Lisää uusi tuntileimaus</Button>
+        <h1 style="color:white;" class="w3-center">Päivitä opiskelijan tuntiraporttia</h1>
 
-            <div style="background-color:white; overflow-x:auto;">
+        <Button class="btn btn-default" id="lisaaUusiTuntiButton" style="margin-bottom: 30px">Lisää uusi tuntileimaus</Button>
 
-                <table class="table table-striped" id="opiskelijaidList">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Leimaus</th>
-                            <th>OpiskelijaID</th>
-                            <th>Etunimi</th>
-                            <th>Sukunimi</th>
-                            <th>LuokkahuoneID</th>
-                            <th>Sisään</th>
-                            <th>Ulos</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
+        <div style="background-color:white; overflow-x:auto;">
 
-                </table>
+            <table class="table table-striped" id="opiskelijaidList">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Leimaus</th>
+                        <th>OpiskelijaID</th>
+                        <th>Etunimi</th>
+                        <th>Sukunimi</th>
+                        <th>LuokkahuoneID</th>
+                        <th>Sisään</th>
+                        <th>Ulos</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
 
-                <div class="modal fade" tabindex="-1" role="dialog" id="opiskelijaidModalDialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title"><span id="opiskelijaidModalTitle">Muokkaa opiskelijaa</span></h4>
+            </table>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="opiskelijaidModalDialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title"><span id="opiskelijaidModalTitle">Muokkaa opiskelijaa</span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-3">Leimaus ID</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_LeimausID" type="text"></div>
                             </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-3">Leimaus ID</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_LeimausID" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">Opiskelijan ID</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_OpiskelijaID" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">Etunimi</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Etunimi" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">Sukunimi</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sukunimi" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">LuokkahuoneID</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_LuokkahuoneID" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">Sisään</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sisään" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">Ulos</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Ulos" type="text"></div>
-                                </div>
+                            <div class="row">
+                                <div class="col-md-3">Opiskelijan ID</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_OpiskelijaID" type="text"></div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
-                                <button type="button" class="btn btn-primary" id="opiskelijaidModalSaveButton">Tallenna</button>
+                            <div class="row">
+                                <div class="col-md-3">Etunimi</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Etunimi" type="text"></div>
                             </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-            </div>
+                            <div class="row">
+                                <div class="col-md-3">Sukunimi</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sukunimi" type="text"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">LuokkahuoneID</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_LuokkahuoneID" type="text"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">Sisään</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sisään" type="text"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">Ulos</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Ulos" type="text"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                            <button type="button" class="btn btn-primary" id="opiskelijaidModalSaveButton">Tallenna</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
         </div>
     </div>
+</div>
