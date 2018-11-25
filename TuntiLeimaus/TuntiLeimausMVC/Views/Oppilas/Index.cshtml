@@ -14,37 +14,52 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    .abcdimage {
+        background-image: url("../../Images/oppilas_taustakuva.png");
+        min-height: 100%;
+        /*background-position: center;*/
+        background-size: cover;
+        padding: 30px;
+    }
+</style>
+
 </head>
 <body>
 
-    <h1>Oma tuntiraporttini</h1>
-    <p>Tarkastele omaa tuntiraporttiasi</p>
-    <div class="row">
-        <table class=" table table-striped">
-            <thead>
-                <tr>
-                    <th>OpiskelijaID</th>
-                    <th>Etunimi</th>
-                    <th>Sukunimi</th>
-                    <th>LuokkahuoneID</th>
-                    <th>Sisään</th>
-                    <th>Ulos</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (TuntiLeimausMVC.Models.Tuntiraportti tunt in Model)
-                {
-                    <tr>
-                        <td>@tunt.OpiskelijaID</td>
-                        <td>@tunt.Etunimi</td>
-                        <td>@tunt.Sukunimi</td>
-                        <td>@tunt.LuokkahuoneID</td>
-                        <td>@tunt.Sisään</td>
-                        <td>@tunt.Ulos</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div class="w3-content" style="max-width:1400px">
+        <div class="w3-container abcdimage">
+
+            <h1>Oma tuntiraporttini</h1>
+            <p>Tarkastele omaa tuntiraporttiasi</p>
+            <div class="row">
+                <table class=" table table-striped">
+                    <thead>
+                        <tr>
+                            <th>OpiskelijaID</th>
+                            <th>Etunimi</th>
+                            <th>Sukunimi</th>
+                            <th>LuokkahuoneID</th>
+                            <th>Sisään</th>
+                            <th>Ulos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (TuntiLeimausMVC.Models.Tuntiraportti tunt in Model)
+                        {
+                            <tr>
+                                <td>@tunt.OpiskelijaID</td>
+                                <td>@tunt.Etunimi</td>
+                                <td>@tunt.Sukunimi</td>
+                                <td>@tunt.LuokkahuoneID</td>
+                                <td>@tunt.Sisään</td>
+                                <td>@tunt.Ulos</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 </html>

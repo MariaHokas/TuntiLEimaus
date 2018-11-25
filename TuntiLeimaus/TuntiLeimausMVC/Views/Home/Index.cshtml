@@ -27,19 +27,40 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: medium;
         }
+        .btn-circle.btn-xl {
+            width: 100px;
+            height: 100px;
+            padding: 10px 16px;
+            border-radius: 50px;
+            font-size: 22px;
+            line-height: 1.33;
+        }
 
-        .button {
-            background-color: rgb(255,255,255);
-            border-radius: 50%;
-            border-color: rgb(190,250,120);
-            color: rgb(195,185,175);
-            padding: 52px 20px;
+        .btn-circle {
+            width: 100px;
+            height: 100px;
+            padding: 6px 0px;
+            border-radius: 50px;
             text-align: center;
+            font-size: 22px;
+            line-height: 1.42857;
+        }
+
+
+        /*.button {
+            background-color: rgb(255,255,255);*/
+            /*border-radius: 50%;*/
+            /*border-color: rgb(190,250,120);*/
+            /*color: rgb(195,185,175);*/
+            /*padding: 52px 20px;*/
+            /*padding: 20px;*/
+            /*text-align: center;*/
             /*text-decoration: none;*/
             /*display: inline-block;*/
-            font-size: 20px;
+            /*font-size: 20px;
             margin-right: 40px;
-            margin-top: 30px;
+            margin-top: 30px;*/
+            
             /*cursor: pointer;*/
             /*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);*/
         }
@@ -55,7 +76,7 @@
                 transform: translateY(10px);
             }*/
 
-        .button2 {
+        /*.button2 {
             background-color: rgb(255,255,255);
             border-radius: 50%;
             color: rgb(195,185,175);
@@ -78,7 +99,7 @@
             .button2:active {
                 background-color: rgb(0,0,185);
                 transform: translateY(4px);
-            }
+            }*/
 
 
         .span {
@@ -217,8 +238,10 @@
                                 <input type="text" class="form-control" id="leiModal_Lid" placeholder="Anna luokkahuoneen numero">
                             </div>
                             <div class="col-sm-6" style="margin-bottom:200px;">
-                                <button type="button" class="button" id="SaveButton">Sisään</button>
-                                <button type="button" class="button2" id="UlosButton">Ulos</button>
+                                @*<button type="button" class="button" id="SaveButton">Sisään</button>
+        <button type="button" class="button2" id="UlosButton">Ulos</button>*@
+                                <button type="button" class="btn btn-default btn-circle btn-lg" id="SaveButton">Sisään</button>
+                                <button type="button" class="btn btn-default btn-circle btn-lg" id="UlosButton">Ulos</button>
 
                             </div>
                         </form>
