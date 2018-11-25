@@ -28,6 +28,48 @@
         .footer {
             position: fixed;
         }
+
+        .dropbtn {
+            background-color: black;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
     </style>
 </head>
 
@@ -50,13 +92,14 @@
                     <li>@Html.ActionLink("Opettaja", "Index", "Opettaja")</li>
                     <li>@Html.ActionLink("Oppilas", "Index", "Oppilas")</li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">Links <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="http://www.pointcollege.fi/">Point College</a></li>
-                            <li><a href="https://www.office.com/?auth=2&home=1">Sähköposti</a></li>
-                            <li><a href="https://moodle.pointcollege.fi/login/index.php">Moodle</a></li>
-                            <li><a href="https://wilma.pointcollege.fi/">Wilma</a></li>
-                        </ul>
+                        <a class="dropdown-toggle disabled" data-toggle="dropdown">Links <span class="caret"></span></a>
+                        <div class="dropdown-content">
+                            <a href="http://www.pointcollege.fi/">Point College</a>
+                            <a href="https://www.office.com/?auth=2&home=1">Sähköposti</a>
+                            <a href="https://moodle.pointcollege.fi/login/index.php">Moodle</a>
+                            <a href="https://wilma.pointcollege.fi/">Wilma</a>
+                        </div>
+
                     </li>
                 </ul>
             </div>
