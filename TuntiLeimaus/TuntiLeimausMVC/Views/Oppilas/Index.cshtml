@@ -26,6 +26,47 @@
         background-size: cover;
         background-position: center;
     }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    form.example input[type=text] {
+        padding: 4px;
+        font-size: 17px;
+        border: 1px solid grey;
+        float: left;
+        width: 80%;
+        background: white;
+        border-radius: 4px;
+      
+    }
+
+    form.example button {
+        float: left;
+        width: 20%;
+        padding: 4px;
+        background: black;
+        color: white;
+        font-size: 17px;
+        border: 1px solid grey;
+        border-left: none;
+        cursor: pointer;
+        border-radius: 4px;
+        
+    }
+
+        form.example button:hover {
+            background: grey;
+        }
+
+    form.example::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+
 </style>
 
 </head>
@@ -34,8 +75,15 @@
     <div class="w3-content" style="max-width:1400px">
         <div class="w3-container abcdimage">
 
-            <h1>Oma tuntiraporttini</h1>
-            <p>Tarkastele omaa tuntiraporttiasi</p>
+            <h1 align="center">Oma tuntiraporttini</h1>
+            <p align="center">Tarkastele omaa tuntiraporttiasi</p>
+
+            
+            <form class="example" action="/action_page.php" style="margin:auto;float:right;max-width:200px">
+                <input type="text" placeholder="Etsi.." name="search2">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+
             <div class="row">
                 <table class=" table table-striped">
                     <thead>
