@@ -16,7 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
     .abcdimage {
-        background-image: url("../../Images/oppilas_taustakuva.png");
+        background-image: url("../../Images/opettaja_taustakuva.png");
         min-height: 100%;
         /*background-position: center;*/
         background-size: cover;
@@ -75,17 +75,19 @@
     <div class="w3-content" style="max-width:1400px">
         <div class="w3-container abcdimage">
 
-            <h1 align="center">Oma tuntiraporttini</h1>
-            <p align="center">Tarkastele omaa tuntiraporttiasi</p>
+            <h1 style="color:white;" align="center">Oma tuntiraporttini</h1>
+            <p style="color:white;" align="center">Tarkastele omaa tuntiraporttiasi</p>
 
-            
-            <form class="example" action="/action_page.php" style="margin:auto;float:right;max-width:200px">
+
+            <form class="example" action="/action_page.php" style="margin:auto; margin-bottom:15px;float:right;max-width:200px">
                 <input type="text" placeholder="Etsi.." name="search2">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
 
-            <div class="row">
-                <table class=" table table-striped">
+            <div style="border-collapse:collapse; background-color:white; opacity: 1; overflow-x:auto; width:100%;">
+
+                <table class="table table">
+
                     <thead>
                         <tr>
                             <th>OpiskelijaID</th>
