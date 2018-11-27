@@ -17,7 +17,7 @@
     <style>
 
         .abcimage {
-            background-image: url("../../Images/opettaja_taustakuva.png");
+            background-image: url("../../Images/opettaja_taustakuva_iso.png");
             /*min-height: 100%;*/
             background-size: cover;
             padding: 30px;
@@ -208,9 +208,10 @@
 
         <Button class="btn btn-default" id="lisaaUusiTuntiButton" style="margin-bottom: 30px">Lisää uusi tuntileimaus</Button>
 
-        <div style="background-color:white; overflow-x:auto;">
+        @*<div style="background-color: black; filter: alpha(opacity=60); opacity:0.6; overflow-x:auto; color: white; filter: alpha(opacity=100); opacity: 1">*@
+            <div style="background: rgba(5,4,2,0.2); color: white; font-size: larger; overflow-x:auto;">
 
-            <table class="table table-striped" id="opiskelijaidList">
+            <table class="table table" id="opiskelijaidList">
                 <thead>
                     <tr>
                         <th></th>
@@ -273,5 +274,5 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
         </div>
-    </div>
+        </div>
 </div>
