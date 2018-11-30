@@ -14,62 +14,207 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-    .abcdimage {
-        background-image: url("../../Images/opettaja_taustakuva_iso.png");
-        min-height: 100%;
-        /*background-position: center;*/
-        background-size: cover;
-        padding: 30px;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    form.example input[type=text] {
-        padding: 4px;
-        font-size: 17px;
-        border: 1px solid grey;
-        float: left;
-        width: 80%;
-        background: white;
-        border-radius: 4px;
-      
-    }
-
-    form.example button {
-        float: left;
-        width: 20%;
-        padding: 4px;
-        background: black;
-        color: white;
-        font-size: 17px;
-        border: 1px solid grey;
-        border-left: none;
-        cursor: pointer;
-        border-radius: 4px;
-        
-    }
-
-        form.example button:hover {
-            background: grey;
+    <style>
+        .abcdimage {
+            background-image: url("../../Images/opettaja_taustakuva_iso.png");
+            min-height: 100%;
+            /*background-position: center;*/
+            background-size: cover;
+            padding: 30px;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
         }
 
-    form.example::after {
-        content: "";
-        clear: both;
-        display: table;
-    }
+        * {
+            box-sizing: border-box;
+        }
+
+        form.example input[type=text] {
+            padding: 4px;
+            font-size: 17px;
+            border: 1px solid grey;
+            float: left;
+            width: 80%;
+            background: white;
+            border-radius: 4px;
+        }
+
+        form.example button {
+            float: left;
+            width: 20%;
+            padding: 4px;
+            background: black;
+            color: white;
+            font-size: 17px;
+            border: 1px solid grey;
+            border-left: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+            form.example button:hover {
+                background: grey;
+            }
+
+        form.example::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        /*.GridviewScrollHeader TH, .GridviewScrollHeader TD {
+            padding: 5px;
+            font-weight: bold;
+            white-space: nowrap;
+            border-right: 1px solid #AAAAAA;
+            border-bottom: 1px solid #AAAAAA;
+            background-color: #EFEFEF;
+            text-align: center;
+            vertical-align: bottom;
+        }
+
+        .GridviewScrollItem TD {
+            padding: 5px;
+            white-space: nowrap;
+            border-right: 1px solid #AAAAAA;
+            border-bottom: 1px solid #AAAAAA;
+            background-color: #FFFFFF;
+        }*/
+
+        .GridviewScrollPager {
+            border-top: 1px solid #AAAAAA;
+            background-color: white;
+        }
+
+            .GridviewScrollPager TD {
+                padding-top: 3px;
+                font-size: 11px;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            .GridviewScrollPager A {
+                color: white;
+            }
+
+            .GridviewScrollPager SPAN {
+                font-size: 11px;
+                font-weight: bold;
+            }
+
+        .inner_table {
+            width: 50%;
+            border-collapse: collapse;
+            overflow: auto;
+            height: 300px;
+            display: inherit;
+        }
+
+        .pg-normal {
+            color: white;
+            font-weight: normal;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .pg-selected {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        
+    </style>
+
+    <script>
+
+        var pager; // declare the pager variable outside
+        $(function () {
+            pager = new Pager('tabledata', 5);
+            pager.init();
+            pager.showPageNav('pager', 'pageNavPosition');
+            pager.showPage(1);
+        });
 
 
-</style>
+        function Pager(tableName, itemsPerPage) {
+            this.tableName = tableName;
+            this.itemsPerPage = itemsPerPage;
+            this.currentPage = 1;
+            this.pages = 0;
+            this.inited = false;
+
+            this.showRecords = function (from, to) {
+                var rows = document.getElementById(tableName).rows;
+                // i starts from 1 to skip table header row
+                for (var i = 1; i < rows.length; i++) {
+                    if (i < from || i > to)
+                        rows[i].style.display = 'none';
+                    else
+                        rows[i].style.display = '';
+                }
+            }
+
+            this.showPage = function (pageNumber) {
+                if (!this.inited) {
+                    alert("not inited");
+                    return;
+                }
+
+                var oldPageAnchor = document.getElementById('pg' + this.currentPage);
+                oldPageAnchor.className = 'pg-normal';
+
+                this.currentPage = pageNumber;
+                var newPageAnchor = document.getElementById('pg' + this.currentPage);
+                newPageAnchor.className = 'pg-selected';
+
+                var from = (pageNumber - 1) * itemsPerPage + 1;
+                var to = from + itemsPerPage - 1;
+                this.showRecords(from, to);
+            }
+
+            this.prev = function () {
+                if (this.currentPage > 1)
+                    this.showPage(this.currentPage - 1);
+            }
+
+            this.next = function () {
+                if (this.currentPage < this.pages) {
+                    this.showPage(this.currentPage + 1);
+                }
+            }
+
+            this.init = function () {
+                var rows = document.getElementById(tableName).rows;
+                var records = (rows.length - 1);
+                this.pages = Math.ceil(records / itemsPerPage);
+                this.inited = true;
+            }
+
+            this.showPageNav = function (pagerName, positionId) {
+                if (!this.inited) {
+                    alert("not inited");
+                    return;
+                }
+                var element = document.getElementById(positionId);
+
+                var pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal"> &#171 Edellinen </span> | ';
+                for (var page = 1; page <= this.pages; page++)
+                    pagerHtml += '<span id="pg' + page + '" class="pg-normal" onclick="' + pagerName + '.showPage(' + page + ');">' + page + '</span> | ';
+                pagerHtml += '<span onclick="' + pagerName + '.next();" class="pg-normal"> Seuraava &#187;</span>';
+
+                element.innerHTML = pagerHtml;
+            }
+        }
+
+    </script>
 
 </head>
+
 <body>
 
     <div class="w3-content" style="max-width:1400px">
@@ -85,11 +230,9 @@
             </form>
 
 
-            @*<div style="border-collapse:collapse; background-color:white; opacity: 1; overflow-x:auto; width:100%;">*@
-
             <div style="border-collapse: collapse; background: rgba(5,4,2,0.2); color: white; font-size: larger; overflow-x:auto; width: 100%">
-
-                <table class="table table">
+                @*<div style="border-collapse:collapse; background-color:white; opacity: 1; overflow-x:auto; width:100%;">*@
+                <table id="tabledata" class="table table" cellspacing="0" style="width: 100%; border-collapse: collapse;">
 
                     <thead>
                         <tr>
@@ -101,7 +244,11 @@
                             <th>Ulos</th>
                         </tr>
                     </thead>
+
+
                     <tbody>
+
+
                         @foreach (TuntiLeimausMVC.Models.Tuntiraportti tunt in Model)
                         {
                             <tr>
@@ -116,7 +263,9 @@
                     </tbody>
                 </table>
             </div>
+            <div id="pageNavPosition"></div>
+        </div>      
         </div>
-        </div>
+    
 </body>
 </html>
