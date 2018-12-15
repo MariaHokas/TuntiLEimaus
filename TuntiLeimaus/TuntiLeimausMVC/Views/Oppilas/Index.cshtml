@@ -211,6 +211,30 @@
             }
         }
 
+         
+                function myFunction() {
+                    // Declare variables
+                    var input, filter, table, tr, td, i, txtValue;
+                    input = document.getElementById("myInput");
+                    filter = input.value.toUpperCase();
+                    table = document.getElementById("tabledata");
+                    tr = table.getElementsByTagName("tr");
+
+                    // Loop through all table rows, and hide those who don't match the search query
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[3];
+                        if (td) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            
+
     </script>
 
 </head>
@@ -223,9 +247,10 @@
             <h1 style="color:white;" align="center">Oma tuntiraporttini</h1>
             <p style="color:white;" align="center">Tarkastele omaa tuntiraporttiasi</p>
 
+           
 
-            <form class="example" action="/action_page.php" style="margin:auto; margin-bottom:15px;float:right;max-width:200px">
-                <input type="text" placeholder="Etsi.." name="search2">
+            <form class="example" style="margin:auto; margin-bottom:15px; float:right; max-width:200px">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Etsi luokalla.." name="search2">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
 

@@ -67,6 +67,7 @@ namespace TuntiLeimausMVC.Controllers
                 entities.Tuntiraportti.Add(dbItem);
                 entities.SaveChanges();
                 OK = true;
+                ModelState.Clear();
             }
 
             entities.Dispose();
@@ -96,6 +97,7 @@ namespace TuntiLeimausMVC.Controllers
                 //entities.Tuntiraportti.Add(dbItem);
                 entities.SaveChanges();
                 OK = true;
+                ModelState.Clear();
             }
 
             //entiteettiolion vapauttaminen
