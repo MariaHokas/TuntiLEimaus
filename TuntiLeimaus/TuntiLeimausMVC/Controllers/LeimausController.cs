@@ -10,6 +10,7 @@ namespace TuntiLeimausMVC.Controllers
 {
     public class LeimausController : Controller
     {
+        public object OK { get; private set; }
         // GET: Leimaus
         public ActionResult Index()
         {
@@ -25,11 +26,11 @@ namespace TuntiLeimausMVC.Controllers
             var model = (from p in entities.Tuntiraportti
                          select new
                          {
-                         p.LeimausID,
-                         p.OpiskelijaID,
-                         p.LuokkahuoneID,
-                         p.Sisään,
-                         p.Ulos
+                             p.LeimausID,
+                             p.OpiskelijaID,
+                             p.LuokkahuoneID,
+                             p.Sisään,
+                             p.Ulos
 
                          }).ToList();
 
@@ -41,28 +42,7 @@ namespace TuntiLeimausMVC.Controllers
 
             return Json(json, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetSingLeimaus(int id)
-        {
 
-            //Tämä malli antaa enemmän mahdollisuuksia
-            TuntiLeimausEntities entities = new TuntiLeimausEntities();
-            //List<Customer> model = entities.Customers.ToList();
-            var model = (from p in entities.Tuntiraportti
-                         where p.LeimausID == id
-                         select new
-                         {
-                             p.LeimausID,
-                             p.OpiskelijaID,
-                             p.LuokkahuoneID,
-                             p.Sisään,
-                             p.Ulos
-                         }).FirstOrDefault();
-
-            string json = JsonConvert.SerializeObject(model);
-            entities.Dispose();
-
-            return Json(json, JsonRequestBehavior.AllowGet);
-        }
         public ActionResult Update(Tuntiraportti pro)
         {
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
@@ -81,8 +61,6 @@ namespace TuntiLeimausMVC.Controllers
                     OpiskelijaID = pro.OpiskelijaID,
                     LuokkahuoneID = pro.LuokkahuoneID,
                     Sisään = DateTime.Now,
-                    Ulos = pro.Ulos
-
                 };
 
                 // tallennus tietokantaan
@@ -90,35 +68,41 @@ namespace TuntiLeimausMVC.Controllers
                 entities.SaveChanges();
                 OK = true;
             }
-            else
-            //tästä ehkä lähdetty muokkaamaan.
-            {
-                // muokkaus, haetaan id:n perusteella riviä tietokannasta
 
-                Tuntiraportti dbItem = (from t in entities.Tuntiraportti
-                                        where t.LeimausID == id
-                                  select t).FirstOrDefault();
-
-                if (dbItem != null)
-                {
-                    dbItem.LeimausID = pro.LeimausID;
-                    dbItem.OpiskelijaID = pro.OpiskelijaID;
-                    dbItem.LuokkahuoneID = pro.LuokkahuoneID;
-                    dbItem.Sisään = pro.Sisään;
-                    dbItem.Ulos = DateTime.Now;
-
-                    // tallennus tietokantaan
-                    entities.SaveChanges();
-                    OK = true;
-                }
-            }
             entities.Dispose();
             return Json(OK, JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult Index2()
+
+        public ActionResult Ulos(Tuntiraportti pro)
         {
-            return View();
+            TuntiLeimausEntities entities = new TuntiLeimausEntities();
+
+            //haetaan id:n perusteella rivi SQL tietokannasta
+
+            Tuntiraportti dbItem = (from p in entities.Tuntiraportti
+                                    where p.OpiskelijaID == pro.OpiskelijaID && p.LuokkahuoneID == pro.LuokkahuoneID
+                                    orderby p.LeimausID descending
+                                    select p).First();
+
+
+            {
+                //dbItem.HenkiloID = henk.HenkiloID;  //tätä ei käytetä
+                //dbItem.OpiskelijaID = pro.OpiskelijaID;
+                //dbItem.LuokkahuoneID = pro.LuokkahuoneID;
+                dbItem.Ulos = DateTime.Now;
+
+                // tallennus SQL tietokantaan
+                //entities.Tuntiraportti.Add(dbItem);
+                entities.SaveChanges();
+                OK = true;
+            }
+
+            //entiteettiolion vapauttaminen
+            entities.Dispose();
+
+            // palautetaan 'json' muodossa
+            return Json(OK, JsonRequestBehavior.AllowGet);
 
         }
 
