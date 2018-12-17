@@ -3,9 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 
     <title class="text-left">@ViewBag.Title - TuntiLeimaus</title>
 
@@ -19,7 +23,6 @@
         h1 {
             font-family: "Arial Black", Gadget, sans-serif;
             font-size: 50px;
-            
         }
 
         .nav2 {
@@ -29,7 +32,6 @@
             background-position: left top;
             background-size: 200px;
             margin-top: 0px;
-
         }
 
 
@@ -87,41 +89,38 @@
 <body style="background-color:black;">
 
     <div class="w3-top">
-
-        <div class=" navbar navbar-inverse nav2" style="padding: 10px; margin-top: 0px;">
+        <nav class=" navbar navbar-inverse nav2" style="padding: 10px; margin-top: 0px;">
             <div class="container-fluid" style="margin-left: 180px;">
                 <div class="navbar-header">
-
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                      
                     </button>
-
+                </div>
 
                     @*@Html.ActionLink("TuntiLeimaus", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        @Html.ActionLink("TuntiLeimaus", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                        <li>@Html.ActionLink("Opettaja", "Index", "Opettaja")</li>
-                        <li>@Html.ActionLink("Oppilas", "Index", "Oppilas")</li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle disabled" data-toggle="dropdown">Linkit <span class="caret"></span></a>
-                            <div class="dropdown-content">
-                                <a href="http://www.pointcollege.fi/">Point College</a>
-                                <a href="https://www.office.com/?auth=2&home=1">Sähköposti</a>
-                                <a href="https://moodle.pointcollege.fi/login/index.php">Moodle</a>
-                                <a href="https://wilma.pointcollege.fi/">Wilma</a>
-                            </div>
 
-                        </li>
-                    </ul>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            @*@Html.ActionLink("TuntiLeimaus", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                            <li>@Html.ActionLink("TuntiLeimaus", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Opettaja", "Index", "Opettaja")</li>
+                            <li>@Html.ActionLink("Oppilas", "Index", "Oppilas")</li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">Linkit <span class="caret"></span></a>
+                                <div class="dropdown-content">
+                                    <a href="http://www.pointcollege.fi/">Point College</a>
+                                    <a href="https://www.office.com/?auth=2&home=1">Sähköposti</a>
+                                    <a href="https://moodle.pointcollege.fi/login/index.php">Moodle</a>
+                                    <a href="https://wilma.pointcollege.fi/">Wilma</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </div>
+</nav>
     </div>
     @RenderBody()
     @Scripts.Render("~/bundles/jquery")
@@ -130,11 +129,11 @@
 
     <footer class="footer" style="background-color:black;">
         <div class="container" style="padding-top: 20px; padding-bottom:5px; text-align:right; margin-right:10px;">
-            <a href="https://www.facebook.com/pointcollege1/" class="fa fa-facebook-official" style="color:lightgray; font-size:20px; margin-right: 7px;"></a>
-            <a href="https://www.instagram.com/pointcollegeporvoo/" class="fa fa-instagram fa-2x" style="color:lightgray; font-size:20px; margin-right: 7px;"></a>
-            <a href="https://www.linkedin.com/in/maria-ahokas/" class="fa fa-pinterest-p fa-2x" style="color:lightgray; font-size:20px; margin-right: 7px;"></a>
-            <a href="https://twitter.com/pointcollege" class="fa fa-twitter fa-2x" style="color:lightgray; font-size:20px; margin-right:7px;"></a>
-            <a href="https://www.linkedin.com/company/porvoo-international-college-oy/" class="fa fa-linkedin fa-1x" style="color:lightgray; font-size:20px; margin-right: 0px;"></a>
+            <a href="https://www.facebook.com/pointcollege1/" class="fa fa-facebook-official fa-2x" style="color:lightgray; margin-right: 7px;"></a>
+            <a href="https://www.instagram.com/pointcollegeporvoo/" class="fa fa-instagram fa-2x" style="color:lightgray; margin-right: 7px;"></a>
+            <a href="https://www.linkedin.com/in/maria-ahokas/" class="fa fa-pinterest-p fa-2x" style="color:lightgray; margin-right: 7px;"></a>
+            <a href="https://twitter.com/pointcollege" class="fa fa-twitter fa-2x" style="color:lightgray; margin-right:7px;"></a>
+            <a href="https://www.linkedin.com/company/porvoo-international-college-oy/" class="fa fa-linkedin fa-2x" style="color:lightgray; margin-right: 0px;"></a>
         </div>
     </footer>
 </body>
