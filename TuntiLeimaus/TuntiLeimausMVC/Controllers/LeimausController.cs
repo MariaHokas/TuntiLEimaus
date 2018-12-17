@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,7 +23,7 @@ namespace TuntiLeimausMVC.Controllers
 
             //Tämä malli antaa enemmän mahdollisuuksia
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
-
+            CultureInfo fiFi = new CultureInfo("fi-FI");
             var model = (from p in entities.Tuntiraportti
                          select new
                          {
@@ -78,7 +79,6 @@ namespace TuntiLeimausMVC.Controllers
         public ActionResult Ulos(Tuntiraportti pro)
         {
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
-
             //haetaan id:n perusteella rivi SQL tietokannasta
 
             Tuntiraportti dbItem = (from p in entities.Tuntiraportti

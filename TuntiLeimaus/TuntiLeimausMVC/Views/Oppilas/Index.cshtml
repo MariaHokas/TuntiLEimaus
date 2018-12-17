@@ -17,7 +17,7 @@
     <style>
         .abcdimage {
             background-image: url("../../Images/opettaja_taustakuva_iso.png");
-            min-height: 100%;
+            min-height: 100px;
             /*background-position: center;*/
             background-size: cover;
             padding: 30px;
@@ -134,7 +134,7 @@
 
         var pager; // declare the pager variable outside
         $(function () {
-            pager = new Pager('tabledata', 15);
+            pager = new Pager('tabledata', 10);
             pager.init();
             pager.showPageNav('pager', 'pageNavPosition');
             pager.showPage(1);

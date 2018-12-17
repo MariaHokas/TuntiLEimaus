@@ -84,12 +84,12 @@
     </style>
 </head>
 
-<body>
+<body style="background-color:black;">
 
     <div class="w3-top">
 
-        <div class="navbar navbar-inverse nav2" style="padding: 15px; margin-top: 0px;">
-            <div class="container" style="margin-left: 180px;">
+        <div class=" navbar navbar-inverse nav2" style="padding: 10px; margin-top: 0px;">
+            <div class="container-fluid" style="margin-left: 180px;">
                 <div class="navbar-header">
 
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -101,11 +101,11 @@
                     </button>
 
 
-                    @Html.ActionLink("TuntiLeimaus", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @*@Html.ActionLink("TuntiLeimaus", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        @*@Html.ActionLink("TuntiLeimaus", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                        @Html.ActionLink("TuntiLeimaus", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                         <li>@Html.ActionLink("Opettaja", "Index", "Opettaja")</li>
                         <li>@Html.ActionLink("Oppilas", "Index", "Oppilas")</li>
                         <li class="dropdown">
@@ -124,21 +124,18 @@
         </div>
     </div>
     @RenderBody()
- 
-
-        <footer class="footer panel-footer"style="background-color:black;">
-            <div class="container" style="padding-top: 20px; padding-bottom:20px; text-align:right; text-emphasis-color:white">
-                
-                <a href="https://www.facebook.com/pointcollege1/" class="fa fa-facebook-official" style="color:white; font-size:24px; margin-right: 5px;"></a>               
-                <a href="https://www.instagram.com/pointcollegeporvoo/" class="fa fa-instagram fa-2x" style="color:white; font-size:24px; margin-right: 5px;"></a>
-                <a href="https://www.linkedin.com/in/maria-ahokas/" class="fa fa-pinterest-p fa-2x" style ="color:white; font-size:24px; margin-right: 5px;"></a>
-                <a href="https://twitter.com/pointcollege" class="fa fa-twitter fa-2x" style="color:white; font-size:24px; margin-right:5px;"></a>
-                <a href="https://www.linkedin.com/company/porvoo-international-college-oy/" class="fa fa-linkedin fa-2x" style="color:white; font-size:24px; margin-right: 5px;"></a>
-
-            </div>
-        </footer> 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <footer class="footer" style="background-color:black;">
+        <div class="container" style="padding-top: 20px; padding-bottom:5px; text-align:right; margin-right:10px;">
+            <a href="https://www.facebook.com/pointcollege1/" class="fa fa-facebook-official" style="color:lightgray; font-size:20px; margin-right: 7px;"></a>
+            <a href="https://www.instagram.com/pointcollegeporvoo/" class="fa fa-instagram fa-2x" style="color:lightgray; font-size:20px; margin-right: 7px;"></a>
+            <a href="https://www.linkedin.com/in/maria-ahokas/" class="fa fa-pinterest-p fa-2x" style="color:lightgray; font-size:20px; margin-right: 7px;"></a>
+            <a href="https://twitter.com/pointcollege" class="fa fa-twitter fa-2x" style="color:lightgray; font-size:20px; margin-right:7px;"></a>
+            <a href="https://www.linkedin.com/company/porvoo-international-college-oy/" class="fa fa-linkedin fa-1x" style="color:lightgray; font-size:20px; margin-right: 0px;"></a>
+        </div>
+    </footer>
 </body>
 </html>

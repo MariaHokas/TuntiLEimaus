@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,9 +21,11 @@ namespace TuntiLeimausMVC.Controllers
         public JsonResult GetList()
         {
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
+            CultureInfo fiFi = new CultureInfo("fi-FI");
 
 
             var model = (from c in entities.Tuntiraportti
+                         orderby c.LeimausID descending
                          select new
                          {
                              c.LeimausID,
@@ -46,6 +49,7 @@ namespace TuntiLeimausMVC.Controllers
         public JsonResult GetSingleTuntiraportti(string id)
         {
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
+            CultureInfo fiFi = new CultureInfo("fi-FI");
             int LeimausID = int.Parse(id);
             var model = (from c in entities.Tuntiraportti
                          where c.LeimausID == LeimausID
@@ -70,6 +74,7 @@ namespace TuntiLeimausMVC.Controllers
         {
 
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
+            CultureInfo fiFi = new CultureInfo("fi-FI");
             int id = tunt.LeimausID;
 
             //oletetaan että tallennusoperaatio ei onnistu
@@ -132,6 +137,7 @@ namespace TuntiLeimausMVC.Controllers
         public ActionResult Delete(string id)
         {
             TuntiLeimausEntities entities = new TuntiLeimausEntities();
+            CultureInfo fiFi = new CultureInfo("fi-FI");
 
             //etsitään id:n perusteella henkilöt kannasta
             //int LeimausID = int.Parse(id);

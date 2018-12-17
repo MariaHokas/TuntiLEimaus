@@ -28,6 +28,16 @@
             background-position: center;
         }
 
+        placeholder
+        
+        {
+
+            font-size: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
 
         form.example input[type=text] {
             padding: 4px;
@@ -61,6 +71,69 @@
             clear: both;
             display: table;
         }
+
+        /*.GridviewScrollHeader TH, .GridviewScrollHeader TD {
+            padding: 5px;
+            font-weight: bold;
+            white-space: nowrap;
+            border-right: 1px solid #AAAAAA;
+            border-bottom: 1px solid #AAAAAA;
+            background-color: #EFEFEF;
+            text-align: center;
+            vertical-align: bottom;
+        }
+
+        .GridviewScrollItem TD {
+            padding: 5px;
+            white-space: nowrap;
+            border-right: 1px solid #AAAAAA;
+            border-bottom: 1px solid #AAAAAA;
+            background-color: #FFFFFF;
+        }*/
+
+        .GridviewScrollPager {
+            border-top: 1px solid #AAAAAA;
+            background-color: white;
+        }
+
+            .GridviewScrollPager TD {
+                padding-top: 3px;
+                font-size: 11px;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            .GridviewScrollPager A {
+                color: white;
+            }
+
+            .GridviewScrollPager SPAN {
+                font-size: 11px;
+                font-weight: bold;
+            }
+
+        .inner_table {
+            width: 50%;
+            border-collapse: collapse;
+            overflow: auto;
+            height: 300px;
+            display: inherit;
+        }
+
+        .pg-normal {
+            color: white;
+            font-weight: normal;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .pg-selected {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -68,6 +141,9 @@
 
 
     <script type="text/javascript">
+
+
+
         function päivitäTuntiraportti() { //"/opiskelijaid/getlist"
             $.getJSON("/opettaja/getlist", null, function (json) {
                 var tuntiraportti = JSON.parse(json);
@@ -86,10 +162,93 @@
                         "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>" +
                         "</tr>\r\n";
                     "</tr>\r\n"
+
+                    //Sivunjakaja
+
+                    var pager; // declare the pager variable outside
+                    $(function () {
+                        pager = new Pager('opiskelijaidList', 10);
+                        pager.init();
+                        pager.showPageNav('pager', 'pageNavPosition');
+                        pager.showPage(1);
+                    });
+
+                    function Pager(tableName, itemsPerPage) {
+                        this.tableName = tableName;
+                        this.itemsPerPage = itemsPerPage;
+                        this.currentPage = 1;
+                        this.pages = 0;
+                        this.inited = false;
+
+                        this.showRecords = function (from, to) {
+                            var rows = document.getElementById(tableName).rows;
+                            // i starts from 1 to skip table header row
+                            for (var i = 1; i < rows.length; i++) {
+                                if (i < from || i > to)
+                                    rows[i].style.display = 'none';
+                                else
+                                    rows[i].style.display = '';
+                            }
+                        }
+
+                        this.showPage = function (pageNumber) {
+                            if (!this.inited) {
+                                alert("not inited");
+                                return;
+                            }
+
+                            var oldPageAnchor = document.getElementById('pg' + this.currentPage);
+                            oldPageAnchor.className = 'pg-normal';
+
+                            this.currentPage = pageNumber;
+                            var newPageAnchor = document.getElementById('pg' + this.currentPage);
+                            newPageAnchor.className = 'pg-selected';
+
+                            var from = (pageNumber - 1) * itemsPerPage + 1;
+                            var to = from + itemsPerPage - 1;
+                            this.showRecords(from, to);
+                        }
+
+                        this.prev = function () {
+                            if (this.currentPage > 1)
+                                this.showPage(this.currentPage - 1);
+                        }
+
+                        this.next = function () {
+                            if (this.currentPage < this.pages) {
+                                this.showPage(this.currentPage + 1);
+                            }
+                        }
+
+                        this.init = function () {
+                            var rows = document.getElementById(tableName).rows;
+                            var records = (rows.length - 1);
+                            this.pages = Math.ceil(records / itemsPerPage);
+                            this.inited = true;
+                        }
+
+                        this.showPageNav = function (pagerName, positionId) {
+                            if (!this.inited) {
+                                alert("not inited");
+                                return;
+                            }
+
+                            var element = document.getElementById(positionId);
+
+                            var pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal"> &#171 Edellinen </span> | ';
+                            for (var page = 1; page <= this.pages; page++)
+                                pagerHtml += '<span id="pg' + page + '" class="pg-normal" onclick="' + pagerName + '.showPage(' + page + ');">' + page + '</span> | ';
+                            pagerHtml += '<span onclick="' + pagerName + '.next();" class="pg-normal"> Seuraava &#187;</span>';
+
+
+                            element.innerHTML = pagerHtml;
+                        }
+                    }
                 }
 
-
                 $("#opiskelijaidList tbody").html(html);
+
+ 
 
                 // tietojen muokkaus
                 $(".glyphicon-pencil").click(function () {
@@ -134,6 +293,7 @@
                         });
                     }
                 });
+                
             });
         }
         //päivitäOpiskelijaIDlistaus();
@@ -186,7 +346,13 @@
             päivitäTuntiraportti();
             console.log("Alustus valmis!114");
 
+
+
         });
+
+ 
+
+        // search työkalu
         function myFunction() {
             // Declare variables
             var input, filter, table, tr, td, i, txtValue;
@@ -209,84 +375,7 @@
             }
         }
 
-        var pager; // declare the pager variable outside
-        $(function () {
-            pager = new Pager('opiskelijaidList', 15);
-            pager.init();
-            pager.showPageNav('pager', 'pageNavPosition');
-            pager.showPage(1);
-        });
 
-
-        function Pager(tableName, itemsPerPage) {
-            this.tableName = tableName;
-            this.itemsPerPage = itemsPerPage;
-            this.currentPage = 1;
-            this.pages = 0;
-            this.inited = false;
-
-            this.showRecords = function (from, to) {
-                var rows = document.getElementById(tableName).rows;
-                // i starts from 1 to skip table header row
-                for (var i = 1; i < rows.length; i++) {
-                    if (i < from || i > to)
-                        rows[i].style.display = 'none';
-                    else
-                        rows[i].style.display = '';
-                }
-            }
-
-            this.showPage = function (pageNumber) {
-                if (!this.inited) {
-                    alert("not inited");
-                    return;
-                }
-
-                var oldPageAnchor = document.getElementById('pg' + this.currentPage);
-                oldPageAnchor.className = 'pg-normal';
-
-                this.currentPage = pageNumber;
-                var newPageAnchor = document.getElementById('pg' + this.currentPage);
-                newPageAnchor.className = 'pg-selected';
-
-                var from = (pageNumber - 1) * itemsPerPage + 1;
-                var to = from + itemsPerPage - 1;
-                this.showRecords(from, to);
-            }
-
-            this.prev = function () {
-                if (this.currentPage > 1)
-                    this.showPage(this.currentPage - 1);
-            }
-
-            this.next = function () {
-                if (this.currentPage < this.pages) {
-                    this.showPage(this.currentPage + 1);
-                }
-            }
-
-            this.init = function () {
-                var rows = document.getElementById(tableName).rows;
-                var records = (rows.length - 1);
-                this.pages = Math.ceil(records / itemsPerPage);
-                this.inited = true;
-            }
-
-            this.showPageNav = function (pagerName, positionId) {
-                if (!this.inited) {
-                    alert("not inited");
-                    return;
-                }
-                var element = document.getElementById(positionId);
-
-                var pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal"> &#171 Edellinen </span> | ';
-                for (var page = 1; page <= this.pages; page++)
-                    pagerHtml += '<span id="pg' + page + '" class="pg-normal" onclick="' + pagerName + '.showPage(' + page + ');">' + page + '</span> | ';
-                pagerHtml += '<span onclick="' + pagerName + '.next();" class="pg-normal"> Seuraava &#187;</span>';
-
-                element.innerHTML = pagerHtml;
-            }
-        }
     </script>
 
 
@@ -296,7 +385,7 @@
     <div class="w3-container abcimage">
 
 
-        <h1 style="color:white; margin-bottom:50px;" align="center">Päivitä opiskelijan tuntiraporttia</h1>
+        <h1 style="color:white; margin:60px;" align="center">Päivitä opiskelijan tuntiraporttia</h1>
 
         <form class="example" style="margin:auto; margin-bottom:15px; float:right; max-width:200px">
             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Etsi opiskelijanumerolla.." name="search2">
@@ -306,72 +395,78 @@
 
         <Button class="btn btn-default" id="lisaaUusiTuntiButton" style="margin-bottom: 30px">Lisää uusi tuntileimaus</Button>
 
-        @*<div style="background-color: black; filter: alpha(opacity=60); opacity:0.6; overflow-x:auto; color: white; filter: alpha(opacity=100); opacity: 1">*@
-        <div style="background: rgba(5,4,2,0.2); color: white; font-size: larger; overflow-x:auto;">
-            <table class="table table" id="opiskelijaidList">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Leimaus</th>
-                        <th>OpiskelijaID</th>
-                        <th>Etunimi</th>
-                        <th>Sukunimi</th>
-                        <th>LuokkahuoneID</th>
-                        <th>Sisään</th>
-                        <th>Ulos</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
+        
 
-            </table>
-            <div style="color: black;">
-                <div class="modal fade" tabindex="-1" role="dialog" id="opiskelijaidModalDialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title"><span id="opiskelijaidModalTitle">Muokkaa opiskelijaa</span></h4>
+            @*<div style="background-color: black; filter: alpha(opacity=60); opacity:0.6; overflow-x:auto; color: white; filter: alpha(opacity=100); opacity: 1">*@
+            <div style="border-collapse: collapse; background: rgba(5,4,2,0.2); color: white; font-size: larger; overflow-x:auto; width: 100%">
+                @*<div style="background: rgba(5,4,2,0.2); color: white; font-size: larger; overflow-x:auto;">*@
+                <table id="opiskelijaidList" class="table table" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Leimaus</th>
+                            <th>OpiskelijaID</th>
+                            <th>Etunimi</th>
+                            <th>Sukunimi</th>
+                            <th>Luokkahuone</th>
+                            <th>Sisään</th>
+                            <th>Ulos</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>        
+            <div id="pageNavPosition">
+            </div>
+        <div style="color: black;">
+            <div class="modal fade" tabindex="-1" role="dialog" id="opiskelijaidModalDialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title"><span id="opiskelijaidModalTitle">Muokkaa opiskelijaa</span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-3">Leimaus ID</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_LeimausID" type="text"></div>
                             </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-3">Leimaus ID</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_LeimausID" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">Opiskelijan ID</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_OpiskelijaID" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">Etunimi</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Etunimi" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">Sukunimi</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sukunimi" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">LuokkahuoneID</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_LuokkahuoneID" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">Sisään</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sisään" type="text"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">Ulos</div>
-                                    <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Ulos" type="text"></div>
-                                </div>
+                            <div class="row">
+                                <div class="col-md-3">Opiskelijan ID</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_OpiskelijaID" type="text"></div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
-                                <button type="button" class="btn btn-primary" id="opiskelijaidModalSaveButton">Tallenna</button>
+                            <div class="row">
+                                <div class="col-md-3">Etunimi</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Etunimi" type="text"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">Sukunimi</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sukunimi" type="text"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">LuokkahuoneID</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_LuokkahuoneID" type="text"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">Sisään</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Sisään" type="text"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">Ulos</div>
+                                <div class="col-md-6"><input class="form-control" id="opiskelijaidModal_Ulos" type="text"></div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                            <button type="button" class="btn btn-primary" id="opiskelijaidModalSaveButton">Tallenna</button>
+                        </div>
+                    </div>
 
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         </div>
     </div>
 </div>
